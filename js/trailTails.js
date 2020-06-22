@@ -202,8 +202,8 @@ $(document).ready(function () {
             i++;
             $( '.map' ).append( '<div class="map-' + i + '" style="width: 800px; height: 500px;"></div>' );
             initMap( $( '.map-' + i ) );
-        } );
-    };
+        });
+    });
     
     //weather forecast function
     function weatherMap(traillat, traillong) {
