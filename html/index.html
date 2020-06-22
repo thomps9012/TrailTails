@@ -16,7 +16,7 @@
     <!-- Font Awesome Icon Library -->
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
     <!--CUSTOM-->
-    <link rel="stylesheet" href="css/trailTails.css">
+    <link rel="stylesheet" href="../css/trailTails.css">
    
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -110,15 +110,16 @@
 
     <div id='map'>
         <!--Section of page with a google maps centered at lat and long pulled from location finder-->
+        <button type="button" class="btn btn-primary btn-lg btn-block">Get Driving Directions to Trailhead</button>
     </div>
     
     <div id='forecastMap'>
         <!-- Section that will generate a dynamically created weather forecast map based off the selected location from the geofinder -->
-       //{s}.sat.owm.io/sql/{z}/{x}/{y}/?appid={200712211-0e0047c0b205b2d2705a464dd36eccec}&overzoom=true&op=rgb&from=cloudless&select=b4,b3,b2&order=best
+       <button type="button" class="btn btn-secondary btn-lg btn-block">Weather Forecast Radar Map</button>
     
     </div>
 
 </body>
-<script type="text/javascript" src="js/trailTails.js"></script>
+<script type="text/javascript" src="../js/trailTails.js"></script>
 
 </html>
