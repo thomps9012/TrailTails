@@ -89,7 +89,7 @@ $(document).ready(function () {
         });
     };
 
-//creates cards with a trail infromation based off of Latitude and longitude
+    //creates cards with a trail infromation based off of Latitude and longitude
     function createTrailList(response, i) {
         var card = $("<div class='card'>");
         var cardBody = $("<div class='card-body'>");
@@ -207,7 +207,7 @@ $(document).ready(function () {
     
     //weather forecast function
     function weatherMap(traillat, traillong) {
-    
+      
     };
 
 
