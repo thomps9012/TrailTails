@@ -197,13 +197,13 @@ $(document).ready(function () {
                 var map = new google.maps.Map( $map[0], myOptions );
                 drawingManager.setMap( map );
         }
-
-        $( 'body' ).on( 'click', '.add-map', function()
-        {
+    $(document).on("click", '.stretched-link', function (event) {
+        event.preventDefault(event);
             i++;
             $( '.map' ).append( '<div class="map-' + i + '" style="width: 800px; height: 500px;"></div>' );
             initMap( $( '.map-' + i ) );
         } );
+    };
     
     //weather forecast function
     function weatherMap(traillat, traillong) {
@@ -243,7 +243,5 @@ $(document).ready(function () {
         event.preventDefault(event);
         var currentId = $(this).next().attr('class');
         getSingleTrail(currentId);
-        initMap( $map );
-
     });
 });
