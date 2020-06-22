@@ -150,6 +150,7 @@ $(document).ready(function () {
             }, 500);
             callWeather(traillat, traillong);
 
+
         });
 
     }
@@ -185,12 +186,31 @@ $(document).ready(function () {
         });
     }
 
-    //google maps function
-    function initMap(searchLat, searchLong) {
-        var trailposi = {lat: parseFloat(searchLat), lng: parseFloat(searchLong)};
-       var map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: trailposi});
-        };
+    //dynamically created google maps function
+    function initMap( $map )
+        {
+                var myOptions = {
+                    center: new google.maps.LatLng(traillat, traillong),
+                    zoom: 12,
+                };
+                var drawingManager = new google.maps.drawing.DrawingManager();
+                var map = new google.maps.Map( $map[0], myOptions );
+                drawingManager.setMap( map );
+        }
+
+        $( 'body' ).on( 'click', '.add-map', function()
+        {
+            i++;
+            $( '.map' ).append( '<div class="map-' + i + '" style="width: 800px; height: 500px;"></div>' );
+            initMap( $( '.map-' + i ) );
+        } );
     
+    //weather forecast function
+    function weatherMap(traillat, traillong) {
+    
+    };
+
+
     //star rating
     $('.avgRating .fa-star').on('click', function () {
         //remove class of checked
@@ -201,6 +221,7 @@ $(document).ready(function () {
         //get count value from index
         hike.minStars = parseInt($(this).attr('value'));
     });
+
     //Geo-locate button
     $(".geo-locate").on("click", function (event) {
         event.preventDefault();
@@ -222,7 +243,7 @@ $(document).ready(function () {
         event.preventDefault(event);
         var currentId = $(this).next().attr('class');
         getSingleTrail(currentId);
-        initMap(currentId);
+        initMap( $map );
 
     });
 });
