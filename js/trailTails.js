@@ -157,31 +157,33 @@ $(document).ready(function () {
 
     //weather call data
     function callWeather(traillat, traillong) {
-        var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
-        var forecastURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey + "&units=imperial";
+        window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 15,lat: traillat, long: traillong, appid: '200712211-0e0047c0b205b2d2705a464dd36eccec',units: 'imperial',containerid: 'openweathermap-widget-15',  });  
+        (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();
+        // var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
+        // var forecastURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey + "&units=imperial";
 
-        $.ajax({
-            url: forecastURL,
-            method: "GET",
-            dataType: "JSON",
-        }).then(function (data) {
-            $("#currentWeather").empty();
-            console.log(data);
-            //create html content for current weather
-            var title = $("<h3 class='card-title'>").text("Current Weather");
-            var card = $("<div>").addClass("card");
-            var description = $("<p>").addClass("card-text").text("Description: " + data.weather[0].description);
-            var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
-            var humid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + "%");
-            var temp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °F");
-            var mintemp = $("<p>").addClass("card-text").text("Min Temperature: " + data.main.temp_min + " °F");
-            var maxtemp = $("<p>").addClass("card-text").text("Max Temperature: " + data.main.temp_max + " °F");
-            var cardBody = $("<div>").addClass("card-body");
+        // $.ajax({
+        //     url: forecastURL,
+        //     method: "GET",
+        //     dataType: "JSON",
+        // }).then(function (data) {
+        //     $("#currentWeather").empty();
+        //     console.log(data);
+        //     //create html content for current weather
+        //     var title = $("<h3 class='card-title'>").text("Current Weather");
+        //     var card = $("<div>").addClass("card");
+        //     var description = $("<p>").addClass("card-text").text("Description: " + data.weather[0].description);
+        //     var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
+        //     var humid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + "%");
+        //     var temp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °F");
+        //     var mintemp = $("<p>").addClass("card-text").text("Min Temperature: " + data.main.temp_min + " °F");
+        //     var maxtemp = $("<p>").addClass("card-text").text("Max Temperature: " + data.main.temp_max + " °F");
+        //     var cardBody = $("<div>").addClass("card-body");
 
 
-            //merge and add to page
-            cardBody.append(title, description, temp, mintemp, maxtemp, humid, wind);
-            card.append(cardBody);
+        //     //merge and add to page
+        //     cardBody.append(title, description, temp, mintemp, maxtemp, humid, wind);
+        //     card.append(cardBody);
             $("#currentWeather").append(card);
         });
     }
