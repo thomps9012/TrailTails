@@ -173,9 +173,9 @@ $(document).ready(function () {
             var description = $("<p>").addClass("card-text").text("Description: " + data.weather[0].description);
             var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
             var humid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + "%");
-            var temp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °K");
-            var mintemp = $("<p>").addClass("card-text").text("Min Temperature: " + data.main.temp_min + " °K");
-            var maxtemp = $("<p>").addClass("card-text").text("Max Temperature: " + data.main.temp_max + " °K");
+            var temp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °F");
+            var mintemp = $("<p>").addClass("card-text").text("Min Temperature: " + data.main.temp_min + " °F");
+            var maxtemp = $("<p>").addClass("card-text").text("Max Temperature: " + data.main.temp_max + " °F");
             var cardBody = $("<div>").addClass("card-body");
 
 
