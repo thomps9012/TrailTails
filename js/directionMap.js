@@ -1,11 +1,16 @@
 function initMap() {
-        var directionsService = new google.maps.DirectionsService();
-        var directionsRenderer = new google.maps.DirectionsRenderer();
+        var directionsRenderer = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 7,
           center: {lat: 41.85, lng: -87.65}
         });
         directionsRenderer.setMap(map);
+        directionsRenderer.setPanel(document.getElementById('right-panel'));
+
+        var control = document.getElementById('floating-panel');
+        control.style.display = 'block';
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
 
         var onChangeHandler = function() {
           calculateAndDisplayRoute(directionsService, directionsRenderer);
@@ -15,17 +20,18 @@ function initMap() {
       }
 
       function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-        directionsService.route(
-            {
-              origin: {query: document.getElementById('start').value},
-              destination: {query: document.getElementById('end').value},
-              travelMode: 'DRIVING'
-            },
-            function(response, status) {
-              if (status === 'OK') {
-                directionsRenderer.setDirections(response);
-              } else {
-                window.alert('Directions request failed due to ' + status);
-              }
-            });
+        var start = document.getElementById('start').value;
+        var end = document.getElementById('end').value;
+        directionsService.route({
+          origin: start,
+          destination: end,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsRenderer.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
       }
+ 
