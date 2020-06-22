@@ -89,6 +89,7 @@ $(document).ready(function () {
         });
     };
 
+//creates cards with a trail infromation based off of Latitude and longitude
     function createTrailList(response, i) {
         var card = $("<div class='card'>");
         var cardBody = $("<div class='card-body'>");
@@ -113,7 +114,7 @@ $(document).ready(function () {
     }
 
 
-    //create single trail card
+    //create single trail card once the user selects a trail
     function getSingleTrail(currentId) {
 
         var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + currentId + '&key=' + hike.apiKey;
@@ -156,7 +157,7 @@ $(document).ready(function () {
     //weather call data
     function callWeather(traillat, traillong) {
         var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
-        var forecastURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey;
+        var forecastURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey + "&units=imperial";
 
         $.ajax({
             url: forecastURL,
@@ -208,7 +209,7 @@ $(document).ready(function () {
         setTimeout(function () { showCity(); }, 3000);
     });
 
-    //
+    //geocodes address based off of geolocation function
     $(".submit").on("click", function (event) {
         event.preventDefault();
         geocodeAddress();
