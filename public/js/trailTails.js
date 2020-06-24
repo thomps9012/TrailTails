@@ -152,6 +152,7 @@ $(document).ready(function () {
             $("#trailCarousel").append(trailCarousel);
             callWeather(traillat, traillong);
 
+            window.location.pathname = '../singleTrail.html';
 
         });
 
