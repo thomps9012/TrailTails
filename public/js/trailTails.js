@@ -1,4 +1,11 @@
 $(document).ready(function () {
+
+    $.get("/api/user_data").then(function (data) {
+        console.log(data)
+        $(".member-name").text(data.email);
+    });
+
+
     //set lat & long by pulling from document and setting our API key with queryurl 
     //need to update lat and long to trailhead location
     var locationLat = "";
@@ -186,29 +193,29 @@ $(document).ready(function () {
         });
     }
 
-    //dynamically created google maps function
-    function initMap( $map )
-        {
-                var myOptions = {
-                    center: new google.maps.LatLng(traillat, traillong),
-                    zoom: 12,
-                };
-                var drawingManager = new google.maps.drawing.DrawingManager();
-                var map = new google.maps.Map( $map[0], myOptions );
-                drawingManager.setMap( map );
-        }
-    $(document).on("click", '.stretched-link', function (event) {
-        event.preventDefault(event);
-            i++;
-            $( '.map' ).append( '<div class="map-' + i + '" style="width: 800px; height: 500px;"></div>' );
-            initMap( $( '.map-' + i ) );
-        });
-    });
+    // //dynamically created google maps function
+    // function initMap( $map )
+    //     {
+    //             var myOptions = {
+    //                 center: new google.maps.LatLng(traillat, traillong),
+    //                 zoom: 12,
+    //             };
+    //             var drawingManager = new google.maps.drawing.DrawingManager();
+    //             var map = new google.maps.Map( $map[0], myOptions );
+    //             drawingManager.setMap( map );
+    //     }
+    // $(document).on("click", '.stretched-link', function (event) {
+    //     event.preventDefault(event);
+    //         i++;
+    //         $( '.map' ).append( '<div class="map-' + i + '" style="width: 800px; height: 500px;"></div>' );
+    //         initMap( $( '.map-' + i ) );
+    //     });
     
-    //weather forecast function
-    function weatherMap(traillat, traillong) {
+    
+    // //weather forecast function
+    // function weatherMap(traillat, traillong) {
       
-    };
+    // };
 
 
     //star rating
