@@ -134,27 +134,22 @@ $(document).ready(function () {
             $("#selectedTrail").empty().show();
             console.log(trailResponse);
             //Build UI content
-            var trailCard = $("<div class='card'>");
-            var trailCardBody = $("<div class='card-body'>");
-            var trailTitle = $("<h3 class='card-title'>").text(trailResponse.trails[0].name);
-            var trailSummary = $("<p class='card-text'>").text(trailResponse.trails[0].summary);
-            var singleTrailLength = $("<p class='card-text'>").text("Trail Length: " + trailResponse.trails[0].length + " miles");
-            var trailCondition = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionStatus);
-            //var trailDifficulty = $("<p class='card-text'>").text("Trail Difficulty: " + trailResponse.trails[0].difficulty);
-            var trailDetails = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionDetails);
+            var trailCarousel = $("<div class='carousel slide'>");
+            var trailCarouselInner = $("<div class='carousel-inner'>");
+            var trailCarouselItem = $("<div class='carousel-item active'>");
+            var trailTitle = $("<h5>").text(trailResponse.trails[0].name);
+            var trailDetails = $("<p>").text("Trail condition: " + trailResponse.trails[0].conditionDetails);
             var traillat = trailResponse.trails[0].latitude;
             var traillong = trailResponse.trails[0].longitude;
             var trailSrc = trailResponse.trails[0].imgMedium;
-            var trailImg = $("<div class='card-img'>").css("background-image", "url('" + trailSrc + "')");
+            var trailImg = $("<img src=" + trailSrc + ">");
 
             // merge and add to page
-            trailCardBody.append(trailTitle, singleTrailLength, trailCondition, trailSummary, trailDetails);
+            trailCarouselItem.append(trailTitle, trailDetails, trailImg);
+            trailCarouselInner.append(trailCarouselItem);
+            trailCarousel.append(trailCarouselInner);
 
-            trailCard.append(trailImg, trailCardBody);
-            $("#selectedTrail").append(trailCard);
-            $('html, body').animate({
-                scrollTop: ($('#selectedTrail').offset().top)
-            }, 500);
+            $("#trailCarousel").append(trailCarousel);
             callWeather(traillat, traillong);
 
 
