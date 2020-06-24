@@ -171,21 +171,25 @@ $(document).ready(function () {
             $("#currentWeather").empty();
             console.log(data);
             //create html content for current weather
-            var title = $("<h3 class='card-title'>").text("Current Weather");
-            var card = $("<div>").addClass("card");
-            var description = $("<p>").addClass("card-text").text("Description: " + data.weather[0].description);
-            var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
-            var humid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + "%");
-            var temp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °F");
-            var mintemp = $("<p>").addClass("card-text").text("Min Temperature: " + data.main.temp_min + " °F");
-            var maxtemp = $("<p>").addClass("card-text").text("Max Temperature: " + data.main.temp_max + " °F");
-            var cardBody = $("<div>").addClass("card-body");
+            var weatherCarousel = $("<div class='carousel slide'>");
+            var weatherCarouselInner = $("<div class='carousel-inner'>");
+            var weatherCarouselItem = $("<div class='carousel-item active'>");
+            var weatherTitle = $("<h5>").text(trailResponse.trails[0].name);
+            var description = $("<p>").text("Description: " + data.weather[0].description);
+            var wind = $("<p>").text("Wind Speed: " + data.wind.speed + " MPH");
+            var humid = $("<p>").text("Humidity: " + data.main.humidity + "%");
+            var temp = $("<p>").text("Temperature: " + data.main.temp + " °F");
+            var mintemp = $("<p>").text("Min Temperature: " + data.main.temp_min + " °F");
+            var maxtemp = $("<p>").text("Max Temperature: " + data.main.temp_max + " °F");
+            
 
+            // merge and add to page
+            weatherCarouselItem.append(title, description, temp, mintemp, maxtemp, humid, wind);
+            weatherCarouselInner.append(CarouselItem);
+            weatherCarousel.append(weatherCarouselInner);
 
-            //merge and add to page
-            cardBody.append(title, description, temp, mintemp, maxtemp, humid, wind);
-            card.append(cardBody);
-            $("#currentWeather").append(card);
+            $("#trailCarousel").append(weatherCarousel);
+
         });
     }
 
