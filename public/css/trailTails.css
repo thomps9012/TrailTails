@@ -375,3 +375,16 @@ h6 {
   height:auto;
   width:35vh;
 }
+.saved-card-header,
+.reviewed-card-header{
+  overflow:hidden;  
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  color:white;
+  background-color: #3C5148;
+  height:auto;
+  width:35vh;
+  border-radius: 5px;
+}
