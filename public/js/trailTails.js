@@ -256,5 +256,6 @@ $(document).ready(function () {
         event.preventDefault(event);
         var currentId = $(this).next().attr('class');
         getSingleTrail(currentId);
+        window.location.href = "../singleTrail.html";
     });
 });
