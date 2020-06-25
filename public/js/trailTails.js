@@ -165,7 +165,8 @@ $(document).ready(function () {
     };
 
     //weather call data
-    function callWeather(traillat, traillong) {
+    module.exports={
+    trailWeather: function callWeather(traillat, traillong) {
         var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
         var forecastURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey + "&units=imperial";
 
@@ -197,6 +198,7 @@ $(document).ready(function () {
             $("#trailCarousel").append(weatherCarousel);
 
         });
+    };
     }
 
     // //dynamically created google maps function

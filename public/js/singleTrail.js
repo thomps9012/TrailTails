@@ -3,6 +3,7 @@ $(document).ready(function () {
 //calling and creating a single trail info card
 const trailTails = require('./trailTails.js');
 trailTails.trailInfo();
+trailTails.trailWeather();
 
 // google maps javascript
 // REQUIRES jquery.livequery
