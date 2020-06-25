@@ -40,6 +40,16 @@
             <label for="exampleInputLastName">Last Name</label>
             <input type="text" class="form-control" id="lastName-input" placeholder="Last Name">
           </div>
+          <div id="pac-container form-group">
+              <label for="exampleInputHometown">Hometown</label>
+              <input id="pac-input" class="form-control" type="text" placeholder="Enter a location">
+            </div>
+          <div id="map"></div>
+          <div id="infowindow-content">
+            <img src="" width="16" height="16" id="place-icon">
+            <span id="place-name" class="title"></span><br>
+            <span id="place-address"></span>
+          </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" class="form-control" id="email-input" placeholder="Email">
@@ -69,6 +79,46 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/signup.js"></script>
 
+<script>
+    // This example requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+    function initMap() {
+      var input = document.getElementById('pac-input');
+      var types = document.getElementById('type-selector');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      // Set the data fields to return when the user selects a place.
+      autocomplete.setFields(
+        ['address_components', 'geometry', 'icon', 'name']);
+      var infowindow = new google.maps.InfoWindow();
+      var infowindowContent = document.getElementById('infowindow-content');
+      infowindow.setContent(infowindowContent);
+      autocomplete.addListener('place_changed', function () {
+        infowindow.close();
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+          // User entered the name of a Place that was not suggested and
+          // pressed the Enter key, or the Place Details request failed.
+          window.alert("No details available for input: '" + place.name + "'");
+          return;
+        }
+        var address = '';
+        if (place.address_components) {
+          address = [
+            (place.address_components[0] && place.address_components[0].short_name || ''),
+            (place.address_components[1] && place.address_components[1].short_name || ''),
+            (place.address_components[2] && place.address_components[2].short_name || '')
+          ].join(' ');
+        }
+        infowindowContent.children['place-icon'].src = place.icon;
+        infowindowContent.children['place-name'].textContent = place.name;
+        infowindowContent.children['place-address'].textContent = address;
+      });
+    }
+  </script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWH78cK63EUcdoo_tn0jlVn0sskHOb4ZI&libraries=places&callback=initMap"
+    async defer></script>
 </body>
 
 </html>
