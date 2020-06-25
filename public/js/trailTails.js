@@ -137,7 +137,7 @@ $(document).ready(function () {
             //Build UI content
             var trailCard = $("<div class='card'>");
             var trailCardBody = $("<div class='card-body'>");
-            var trailTitle = $("<h3 class='card-title'>").text(trailResponse.trails[0].name);
+            var trailTitle = $("<h5 class='card-title'>").text(trailResponse.trails[0].name);
             var trailSummary = $("<p class='card-text'>").text(trailResponse.trails[0].summary);
             var singleTrailLength = $("<p class='card-text'>").text("Trail Length: " + trailResponse.trails[0].length + " miles");
             var trailCondition = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionStatus);
@@ -176,7 +176,7 @@ $(document).ready(function () {
             $("#currentWeather").empty();
             console.log(data);
             //create html content for current weather
-            var title = $("<h3 class='card-title'>").text("Current Weather");
+            var title = $("<h5 class='card-title'>").text("Current Weather");
             var card = $("<div>").addClass("card");
             var description = $("<p>").addClass("card-text").text("Description: " + data.weather[0].description);
             var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
