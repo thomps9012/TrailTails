@@ -5,6 +5,8 @@
     <Title>TrailTales</Title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="./assets/images/dark-dog-favicon.png">
     <!--RESET-->
     <link rel="stylesheet" href="css/reset.css">
     <!--BOOTSTRAP-->
@@ -16,15 +18,19 @@
     <!-- Font Awesome Icon Library -->
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
     <!--CUSTOM-->
-    <link rel="stylesheet" href="./css/trailTails.css">
+    <link rel="stylesheet" href="./css/singleTrail.css">
    
 
+    <!-- JQuery Script -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- Font Awesome script -->
     <script src="https://kit.fontawesome.com/95c8a755bf.js" crossorigin="anonymous"></script>
+    <!-- boostrap script -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <!-- google maps api -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFbGw-yMReKXMfEdpVPRpfcmzHiASxtso">
     </script>
     <meta name="viewport" content="initial-scale=1.0">
@@ -34,21 +40,19 @@
 
 <body>
 
-<div id="trailCarousel" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-  </ol>
-  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+		<div class="carousel-inner">
+		
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
 
 </body>
 <script type="text/javascript" src="./js/singleTrail.js"></script>

@@ -122,7 +122,8 @@ $(document).ready(function () {
 
 
     //create single trail card once the user selects a trail
-    function getSingleTrail(currentId) {
+    module.exports={
+    trailInfo: function getSingleTrail(currentId) {
 
         var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + currentId + '&key=' + hike.apiKey;
 
@@ -134,29 +135,34 @@ $(document).ready(function () {
             $("#selectedTrail").empty().show();
             console.log(trailResponse);
             //Build UI content
-            var trailCarousel = $("<div class='carousel slide'>");
-            var trailCarouselInner = $("<div class='carousel-inner'>");
-            var trailCarouselItem = $("<div class='carousel-item active'>");
-            var trailTitle = $("<h5>").text(trailResponse.trails[0].name);
-            var trailDetails = $("<p>").text("Trail condition: " + trailResponse.trails[0].conditionDetails);
-            var traillat = trailResponse.trails[0].latitude;
-            var traillong = trailResponse.trails[0].longitude;
-            var trailSrc = trailResponse.trails[0].imgMedium;
-            var trailImg = $("<img src=" + trailSrc + ">");
+            var $carousel = $('#carouselExampleIndicators');
+          var $carouselInner = $carousel.find('.carousel-inner');
 
-            // merge and add to page
-            trailCarouselItem.append(trailTitle, trailDetails, trailImg);
-            trailCarouselInner.append(trailCarouselItem);
-            trailCarousel.append(trailCarouselInner);
+          response.data.forEach(function(item, i) {
+            var template = '';
 
-            $("#trailCarousel").append(trailCarousel);
-            callWeather(traillat, traillong);
+            if(i === 0) {
+              template = '<div class="carousel-item active">';
+            } else {
+              template = '<div class="carousel-item">';
+            }
+            
+            template += '<img class="d-block w-80" src="' + item.image + '" alt="Second slide">'; 
+            template += '<div class="carousel-caption">';
+            template += '<h5>' + item.title_a + '</h5>';
+            template += '<p>' + item.category + '</p>';
+            template += '</div>';
+            template += '</div>';
 
-            window.location.pathname = '../singleTrail.html';
+            $carouselInner.append(template);
+          })
+
+          $carousel.carousel();
 
         });
 
     }
+    };
 
     //weather call data
     function callWeather(traillat, traillong) {
