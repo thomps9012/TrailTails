@@ -124,7 +124,7 @@ $(document).ready(function () {
     //create single trail card once the user selects a trail
     module.exports={
     trailInfo: function getSingleTrail(currentId) {
-
+        
         var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + currentId + '&key=' + hike.apiKey;
 
         $.ajax({
@@ -135,32 +135,30 @@ $(document).ready(function () {
             $("#selectedTrail").empty().show();
             console.log(trailResponse);
             //Build UI content
-            var $carousel = $('#carouselExampleIndicators');
-          var $carouselInner = $carousel.find('.carousel-inner');
+            var trailCard = $("<div class='card'>");
+            var trailCardBody = $("<div class='card-body'>");
+            var trailTitle = $("<h3 class='card-title'>").text(trailResponse.trails[0].name);
+            var trailSummary = $("<p class='card-text'>").text(trailResponse.trails[0].summary);
+            var singleTrailLength = $("<p class='card-text'>").text("Trail Length: " + trailResponse.trails[0].length + " miles");
+            var trailCondition = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionStatus);
+            //var trailDifficulty = $("<p class='card-text'>").text("Trail Difficulty: " + trailResponse.trails[0].difficulty);
+            var trailDetails = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionDetails);
+            var traillat = trailResponse.trails[0].latitude;
+            var traillong = trailResponse.trails[0].longitude;
+            var trailSrc = trailResponse.trails[0].imgMedium;
+            var trailImg = $("<div class='card-img'>").css("background-image", "url('" + trailSrc + "')");
 
-          response.data.forEach(function(item, i) {
-            var template = '';
+            // merge and add to page
+            trailCardBody.append(trailTitle, singleTrailLength, trailCondition, trailSummary, trailDetails);
 
-            if(i === 0) {
-              template = '<div class="carousel-item active">';
-            } else {
-              template = '<div class="carousel-item">';
-            }
+            trailCard.append(trailImg, trailCardBody);
+            $("#selectedTrail").append(trailCard);
+            $('html, body').animate({
+                scrollTop: ($('#selectedTrail').offset().top)
+            }, 500);
+            callWeather(traillat, traillong);
             
-            template += '<img class="d-block w-80" src="' + item.image + '" alt="Second slide">'; 
-            template += '<div class="carousel-caption">';
-            template += '<h5>' + item.title_a + '</h5>';
-            template += '<p>' + item.category + '</p>';
-            template += '</div>';
-            template += '</div>';
-
-            $carouselInner.append(template);
-          })
-
-          $carousel.carousel();
-
         });
-
     }
     };
 
@@ -168,7 +166,7 @@ $(document).ready(function () {
     module.exports={
     trailWeather: function callWeather(traillat, traillong) {
         var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
-        var forecastURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey + "&units=imperial";
+        var forecastURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey;
 
         $.ajax({
             url: forecastURL,
@@ -178,24 +176,21 @@ $(document).ready(function () {
             $("#currentWeather").empty();
             console.log(data);
             //create html content for current weather
-            var weatherCarousel = $("<div class='carousel slide'>");
-            var weatherCarouselInner = $("<div class='carousel-inner'>");
-            var weatherCarouselItem = $("<div class='carousel-item active'>");
-            var weatherTitle = $("<h5>").text(trailResponse.trails[0].name);
-            var description = $("<p>").text("Description: " + data.weather[0].description);
-            var wind = $("<p>").text("Wind Speed: " + data.wind.speed + " MPH");
-            var humid = $("<p>").text("Humidity: " + data.main.humidity + "%");
-            var temp = $("<p>").text("Temperature: " + data.main.temp + " °F");
-            var mintemp = $("<p>").text("Min Temperature: " + data.main.temp_min + " °F");
-            var maxtemp = $("<p>").text("Max Temperature: " + data.main.temp_max + " °F");
-            
+            var title = $("<h3 class='card-title'>").text("Current Weather");
+            var card = $("<div>").addClass("card");
+            var description = $("<p>").addClass("card-text").text("Description: " + data.weather[0].description);
+            var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
+            var humid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + "%");
+            var temp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °K");
+            var mintemp = $("<p>").addClass("card-text").text("Min Temperature: " + data.main.temp_min + " °K");
+            var maxtemp = $("<p>").addClass("card-text").text("Max Temperature: " + data.main.temp_max + " °K");
+            var cardBody = $("<div>").addClass("card-body");
 
-            // merge and add to page
-            weatherCarouselItem.append(title, description, temp, mintemp, maxtemp, humid, wind);
-            weatherCarouselInner.append(CarouselItem);
-            weatherCarousel.append(weatherCarouselInner);
 
-            $("#trailCarousel").append(weatherCarousel);
+            //merge and add to page
+            cardBody.append(title, description, temp, mintemp, maxtemp, humid, wind);
+            card.append(cardBody);
+            $("#currentWeather").append(card);
 
         });
     };
