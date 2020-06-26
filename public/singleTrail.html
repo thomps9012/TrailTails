@@ -63,8 +63,9 @@
         <h3 class="h3-responsive">Light mask</h3>
         <p>First text</p>
         <!-- Button trigger modal-->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRelatedContent">Launch
-  modal</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#centralModalInfo">Launch
+   modal
+</button>
       </div>
     </div>
     <div class="carousel-item">
@@ -78,8 +79,9 @@
         <h3 class="h3-responsive">Strong mask</h3>
         <p>Secondary text</p>
         <!-- Button trigger modal-->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRelatedContent">Launch
-  modal</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#centralModalInfo">Launch
+   modal
+</button>
       </div>
     </div>
     <div class="carousel-item">
@@ -93,8 +95,9 @@
         <h3 class="h3-responsive">Slight mask</h3>
         <p>Third text</p>
         <!-- Button trigger modal-->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRelatedContent">Launch
-  modal</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#centralModalInfo">Launch
+   modal
+</button>
       </div>
     </div>
   </div>
@@ -114,43 +117,41 @@
 
 <!-- Modal code that pops up trail card info -->
 
-<!--Modal: modalRelatedContent-->
-<div class="modal fade center" id="modalRelatedContent" tabindex="-1" role="dialog"
-  aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-side modal-center modal-notify modal-info" role="document">
-    <!--Content-->
-    <div class="modal-content">
-      <!--Header-->
-      <div class="modal-header">
-        <p class="heading">Related article</p>
+<!-- Central Modal Medium Info -->
+ <div class="modal fade" id="centralModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+   aria-hidden="true">
+   <div class="modal-dialog modal-notify modal-info" role="document">
+     <!--Content-->
+     <div class="modal-content">
+       <!--Header-->
+       <div class="modal-header">
+         <p class="heading lead">Modal Info</p>
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="white-text">&times;</span>
-        </button>
-      </div>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true" class="white-text">&times;</span>
+         </button>
+       </div>
 
-      <!--Body-->
-      <div class="modal-body">
+       <!--Body-->
+       <div class="modal-body">
+         <div class="text-center">
+           <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam blanditiis
+             ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat. Esse ratione fuga, enim,
+             ab officiis totam.</p>
+         </div>
+       </div>
 
-        <div class="row">
-          <div class="col-5">
-            <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(55).jpg"
-              class="img-fluid" alt="">
-          </div>
-
-          <div class="col-7">
-            <p><strong>My travel to paradise</strong></p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit [...]</p>
-            <button type="button" class="btn btn-info btn-md">Read more</button>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--/.Content-->
-  </div>
-</div>
-<!--Modal: modalRelatedContent-->
+       <!--Footer-->
+       <div class="modal-footer justify-content-center">
+         <a type="button" class="btn btn-primary">Get it now <i class="far fa-gem ml-1 text-white"></i></a>
+         <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">No, thanks</a>
+       </div>
+     </div>
+     <!--/.Content-->
+   </div>
+ </div>
+ <!-- Central Modal Medium Info-->
 
 <!-- nearby trail cards -->
 <div id="carousel-example-multi" class="carousel slide carousel-multi-item v-2" data-ride="carousel">
