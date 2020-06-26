@@ -11,7 +11,6 @@ $(document).ready(function() {
       event.preventDefault();
       var homeTownText = homeTownInput.val().trim()
       var homeTownArr = homeTownText.split(",")
-      console.log(homeTownArr)
       var userData = {
         firstName: firstNameInput.val().trim(),
         lastName: lastNameInput.val().trim(), 

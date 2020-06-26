@@ -28,4 +28,8 @@ module.exports = function (app) {
         res.sendFile(path.join(__dirname, "../public/index2.html"));
     });
 
+    app.get("/singleTrail", function (req, res) {
+        res.sendFile(path.join(__dirname, "../public/singleTrail.html"))
+    })
+
 };

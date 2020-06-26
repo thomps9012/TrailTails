@@ -17,6 +17,8 @@ module.exports = function (app) {
         db.User.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
+            homeCity: req.body.homeCity,
+            homeState: req.body.homeState,
             email: req.body.email,
             password: req.body.password
         })
@@ -46,6 +48,8 @@ module.exports = function (app) {
             res.json({
                 firstName: req.user.firstName,
                 lastName: req.user.lastName,
+                homeCity: req.user.homeCity,
+                homeState: req.user.homeState,
                 email: req.user.email,
                 id: req.user.id
             });

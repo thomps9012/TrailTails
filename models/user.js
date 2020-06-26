@@ -9,6 +9,12 @@ module.exports = function (sequelize, DataTypes) {
         lastName: {
             type: DataTypes.STRING
         },
+        homeCity: {
+            type: DataTypes.STRING
+        },
+        homeState: {
+            type: DataTypes.STRING
+        },
 
         // The email cannot be null, and must be a proper email before creation
         email: {

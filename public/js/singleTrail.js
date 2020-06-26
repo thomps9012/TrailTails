@@ -1,18 +1,21 @@
 $(document).ready(function () {
 
-//calling and creating a single trail info card
-const trailTails = require('./trailTails.js');
-trailTails.trailInfo();
-trailTails.trailWeather();
+setTimeout(function () { choices(); }, 3000);
+
+console.log(localStorage.getItem("trailId"))
+ 
+  // console.log(localStorage.getItem("trailId"))
+//  console.log(trailId)
+  
 
 // google maps javascript
 // REQUIRES jquery.livequery
-   $('.google-map iframe:visible').livequery(function() {
-     var mapFrame = $(this);
-     if (!$(mapFrame).hasClass('map-refreshed')) {
-       mapFrame.attr('src', mapFrame.attr('src')+'');
-       mapFrame.addClass('map-refreshed');
-    }
+  //  $('.google-map iframe:visible').livequery(function() {
+  //    var mapFrame = $(this);
+  //    if (!$(mapFrame).hasClass('map-refreshed')) {
+  //      mapFrame.attr('src', mapFrame.attr('src')+'');
+  //      mapFrame.addClass('map-refreshed');
+  //   }
 // });
 // function initMap() {
 //         var directionsRenderer = new google.maps.DirectionsRenderer;

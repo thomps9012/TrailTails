@@ -121,80 +121,76 @@ $(document).ready(function () {
     }
 
 
-    //create single trail card once the user selects a trail
-    module.exports={
-    trailInfo: function getSingleTrail(currentId) {
+    // //create single trail card once the user selects a trail
+    // function getSingleTrail(currentId) {
         
-        var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + currentId + '&key=' + hike.apiKey;
+    //     var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + currentId + '&key=' + hike.apiKey;
 
-        $.ajax({
-            url: trailIdURL,
-            method: "GET",
-            dataType: "JSON",
-        }).then(function (trailResponse) {
-            $("#selectedTrail").empty().show();
-            console.log(trailResponse);
-            //Build UI content
-            var trailCard = $("<div class='card'>");
-            var trailCardBody = $("<div class='card-body'>");
-            var trailTitle = $("<h5 class='card-title'>").text(trailResponse.trails[0].name);
-            var trailSummary = $("<p class='card-text'>").text(trailResponse.trails[0].summary);
-            var singleTrailLength = $("<p class='card-text'>").text("Trail Length: " + trailResponse.trails[0].length + " miles");
-            var trailCondition = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionStatus);
-            //var trailDifficulty = $("<p class='card-text'>").text("Trail Difficulty: " + trailResponse.trails[0].difficulty);
-            var trailDetails = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionDetails);
-            var traillat = trailResponse.trails[0].latitude;
-            var traillong = trailResponse.trails[0].longitude;
-            var trailSrc = trailResponse.trails[0].imgMedium;
-            var trailImg = $("<div class='card-img'>").css("background-image", "url('" + trailSrc + "')");
+    //     $.ajax({
+    //         url: trailIdURL,
+    //         method: "GET",
+    //         dataType: "JSON",
+    //     }).then(function (trailResponse) {
+    //         $("#selectedTrail").empty().show();
+    //         console.log(trailResponse);
+    //         //Build UI content
+    //         var trailCard = $("<div class='card'>");
+    //         var trailCardBody = $("<div class='card-body'>");
+    //         var trailTitle = $("<h5 class='card-title'>").text(trailResponse.trails[0].name);
+    //         var trailSummary = $("<p class='card-text'>").text(trailResponse.trails[0].summary);
+    //         var singleTrailLength = $("<p class='card-text'>").text("Trail Length: " + trailResponse.trails[0].length + " miles");
+    //         var trailCondition = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionStatus);
+    //         //var trailDifficulty = $("<p class='card-text'>").text("Trail Difficulty: " + trailResponse.trails[0].difficulty);
+    //         var trailDetails = $("<p class='card-text'>").text("Trail condition: " + trailResponse.trails[0].conditionDetails);
+    //         var traillat = trailResponse.trails[0].latitude;
+    //         var traillong = trailResponse.trails[0].longitude;
+    //         var trailSrc = trailResponse.trails[0].imgMedium;
+    //         var trailImg = $("<div class='card-img'>").css("background-image", "url('" + trailSrc + "')");
 
-            // merge and add to page
-            trailCardBody.append(trailTitle, singleTrailLength, trailCondition, trailSummary, trailDetails);
+    //         // merge and add to page
+    //         trailCardBody.append(trailTitle, singleTrailLength, trailCondition, trailSummary, trailDetails);
 
-            trailCard.append(trailImg, trailCardBody);
-            $("#selectedTrail").append(trailCard);
-            $('html, body').animate({
-                scrollTop: ($('#selectedTrail').offset().top)
-            }, 500);
-            callWeather(traillat, traillong);
+    //         trailCard.append(trailImg, trailCardBody);
+    //         $("#selectedTrail").append(trailCard);
+    //         $('html, body').animate({
+    //             scrollTop: ($('#selectedTrail').offset().top)
+    //         }, 500);
+    //         callWeather(traillat, traillong);
             
-        });
-    }
-    };
+    //     });
+    // }
 
-    //weather call data
-    module.exports={
-    trailWeather: function callWeather(traillat, traillong) {
-        var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
-        var forecastURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey;
+    // //weather call data
+    //  function callWeather(traillat, traillong) {
+    //     var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
+    //     var forecastURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + traillat + "&lon=" + traillong + "&APPID=" + weatherAPIKey;
 
-        $.ajax({
-            url: forecastURL,
-            method: "GET",
-            dataType: "JSON",
-        }).then(function (data) {
-            $("#currentWeather").empty();
-            console.log(data);
-            //create html content for current weather
-            var title = $("<h5 class='card-title'>").text("Current Weather");
-            var card = $("<div>").addClass("card");
-            var description = $("<p>").addClass("card-text").text("Description: " + data.weather[0].description);
-            var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
-            var humid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + "%");
-            var temp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °K");
-            var mintemp = $("<p>").addClass("card-text").text("Min Temperature: " + data.main.temp_min + " °K");
-            var maxtemp = $("<p>").addClass("card-text").text("Max Temperature: " + data.main.temp_max + " °K");
-            var cardBody = $("<div>").addClass("card-body");
+    //     $.ajax({
+    //         url: forecastURL,
+    //         method: "GET",
+    //         dataType: "JSON",
+    //     }).then(function (data) {
+    //         $("#currentWeather").empty();
+    //         console.log(data);
+    //         //create html content for current weather
+    //         var title = $("<h5 class='card-title'>").text("Current Weather");
+    //         var card = $("<div>").addClass("card");
+    //         var description = $("<p>").addClass("card-text").text("Description: " + data.weather[0].description);
+    //         var wind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
+    //         var humid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + "%");
+    //         var temp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " °K");
+    //         var mintemp = $("<p>").addClass("card-text").text("Min Temperature: " + data.main.temp_min + " °K");
+    //         var maxtemp = $("<p>").addClass("card-text").text("Max Temperature: " + data.main.temp_max + " °K");
+    //         var cardBody = $("<div>").addClass("card-body");
 
 
-            //merge and add to page
-            cardBody.append(title, description, temp, mintemp, maxtemp, humid, wind);
-            card.append(cardBody);
-            $("#currentWeather").append(card);
+    //         //merge and add to page
+    //         cardBody.append(title, description, temp, mintemp, maxtemp, humid, wind);
+    //         card.append(cardBody);
+    //         $("#currentWeather").append(card);
 
-        });
-    };
-    }
+    //     });
+    // }
 
     // //dynamically created google maps function
     // function initMap( $map )
@@ -252,7 +248,8 @@ $(document).ready(function () {
     $(document).on("click", '.stretched-link', function (event) {
         event.preventDefault(event);
         var currentId = $(this).next().attr('class');
-        getSingleTrail(currentId);
-        window.location.href = "../singleTrail.html";
+        localStorage.setItem("trailID", currentId)
+        // getSingleTrail(currentId);
+        window.location.href = "/singleTrail";
     });
 });
