@@ -1,11 +1,23 @@
 $(document).ready(function () {
+  var trailId = localStorage.getItem("trailId");
+  var apiKey = "200712211-0e0047c0b205b2d2705a464dd36eccec";
 
-setTimeout(function () { choices(); }, 3000);
+  var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + trailId + '&key=' + apiKey;
 
-console.log(localStorage.getItem("trailId"))
+  $.ajax({
+            url: trailIdURL,
+            method: "GET",
+            dataType: "JSON",
+        }).then(function (trailResponse) {
+
+          console.log(trailResponse)
+
+
+        })
+
+
  
-  // console.log(localStorage.getItem("trailId"))
-//  console.log(trailId)
+ 
   
 
 // google maps javascript
@@ -264,4 +276,4 @@ console.log(localStorage.getItem("trailId"))
 
 //           $carousel.carousel();
 //       })
-});
+})

@@ -248,8 +248,10 @@ $(document).ready(function () {
     $(document).on("click", '.stretched-link', function (event) {
         event.preventDefault(event);
         var currentId = $(this).next().attr('class');
-        localStorage.setItem("trailID", currentId)
+        localStorage.setItem("trailId", currentId)
+        setTimeout(function () {
+            window.location.href = "/singleTrail"
+        }, 50)
         // getSingleTrail(currentId);
-        window.location.href = "/singleTrail";
     });
 });
