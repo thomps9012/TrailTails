@@ -4,6 +4,7 @@ body,
 			padding: 0;
 			height: 100%;
 			background: #ffffff !important;
+			font-family: 'Montserrat', sans-serif;
 		}
 		.user_card {
 			height: 400px;
@@ -67,3 +68,9 @@ body,
 		.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
 			background-color: !important;
 		}
+
+		.navbar{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 23px;
+  font-weight: bolder;  
+}

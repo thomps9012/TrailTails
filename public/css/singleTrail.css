@@ -148,3 +148,9 @@
  .card-weather .weakly-weather .weakly-weather-item i {
      font-size: 1.2rem
  }
+
+ .navbar{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 23px;
+  font-weight: bolder;  
+}
