@@ -32,4 +32,8 @@ module.exports = function (app) {
         res.sendFile(path.join(__dirname, "../public/singleTrail.html"))
     })
 
+    app.get("/profile", function (req, res) {
+        res.sendFile(path.join(__dirname, "../public/profile.html"))
+    })
+
 };
