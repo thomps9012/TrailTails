@@ -95,7 +95,9 @@ $(document).ready(function () {
             }
         });
     };
-
+    $(".backup_img").on("error", function(){
+        $(this).attr('src', "./assets/images/dog-2.jpg");
+    });
     //creates cards with a trail infromation based off of Latitude and longitude
     function createTrailList(response, i) {
         var card = $("<div class='card'>");
@@ -109,7 +111,7 @@ $(document).ready(function () {
         var trailId = $("<p class=" + response.trails[i].id + ">");
         //console.log(trailId)
         var src = response.trails[i].imgMedium;
-        var img = $("<div class='card-img'>").css("background-image", "url('" + src + "')");
+        var img = $("<div class='card-img' 'backup_img'>").css("background-image", "url('" + src + "')");
 
         // merge and add to page
         cardBody.append(title, trailLength, stars, condition, hikeBtn, trailId);
