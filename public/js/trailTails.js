@@ -1,17 +1,55 @@
 $(document).ready(function () {
 
-    $.get("/api/user_data").then(function (data) {
-        console.log(data)
-        $(".member-name").text(data.email);
-    });
-
-
     //set lat & long by pulling from document and setting our API key with queryurl 
     //need to update lat and long to trailhead location
     var locationLat = "";
     var locationLong = "";
     var searchLat = "";
     var searchLong = "";
+
+
+    $.get("/savedTrails").then(function(savedTrails){
+        savedTrails.forEach(trail => {
+            
+            var hikeURL = "https://www.hikingproject.com/data/get-trails-by-id?ids=" + trail.trailId +  "&key=200712211-0e0047c0b205b2d2705a464dd36eccec"
+            $.ajax({
+                url: hikeURL,
+                method: "GET",
+                dataType: "JSON"
+            }).then(function (response) {
+                var name = response.trails[0].name
+                // console.log(response.trails[0])
+                var aEl = $("<a>")
+                aEl.addClass("list-group-item list-group-item-action savedTrail")
+                aEl.css("cursor", "pointer")
+                aEl.attr("href", "/singleTrail/" + response.trails[0].id)
+                aEl.text(name)
+                $("#savedTrailParentDiv").append(aEl)
+            })
+         })
+
+    })
+
+    $.get("/savedReviews").then(function(reviews){
+        reviews.forEach(review => {
+            console.log(review.trailId)
+            var parentDiv = $("#reviewedTrailParentDiv")
+            var aEl = $("<a>")
+            aEl.addClass("list-group-item list-group-item-action savedReview")
+            aEl.css("cursor", "pointer")
+            aEl.text(review.trailName)
+            aEl.attr("href", "/singleTrail/" + review.trailId)
+            var spanEl = $("<span>")
+            spanEl.addClass("fa fa-star")
+            spanEl.css("float", "right")
+            spanEl.css("padding-top", "2.7px")
+            var starText = review.overallStars.toString()
+            spanEl.text(starText)
+            aEl.append(spanEl)
+            parentDiv.append(aEl)
+        })
+
+    })
 
     var hike = {
         maxDistance: 10,
@@ -246,14 +284,26 @@ $(document).ready(function () {
 
     });
 
+    function loadSingleTrail (event) {
+        const currentId = event.currentTarget.attributes.value.value
+        window.location.href = "/singleTrail/" + currentId
+        // console.log(currentId)
+        // localStorage.setItem("trailId", currentId)
+        // setTimeout(function () {
+        //     window.location.href = "/singleTrail"
+        // }, 50)
+        return false;
+
+    }
+
     //click function on trail card
     $(document).on("click", '.stretched-link', function (event) {
         event.preventDefault(event);
         var currentId = $(this).next().attr('class');
-        localStorage.setItem("trailId", currentId)
+        // localStorage.setItem("trailId", currentId)
         setTimeout(function () {
-            window.location.href = "/singleTrail"
+            window.location.href = "/singleTrail/" + currentId
         }, 50)
-        // getSingleTrail(currentId);
     });
+    
 });

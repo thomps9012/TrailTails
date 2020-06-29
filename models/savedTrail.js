@@ -6,5 +6,13 @@ module.exports = function (sequelize, DataTypes) {
         }
     })
 
+    SavedTrail.associate = function (models) {
+        SavedTrail.belongsTo(models.User, {
+            foreignKey: {
+                allowNull: false
+            }
+        })
+    }
+
     return SavedTrail
 }

@@ -1,7 +1,6 @@
 $(document).ready(function () {
-  var trailId = localStorage.getItem("trailId");
+  var trailId = window.location.href.substring(34)
   var apiKey = "200712211-0e0047c0b205b2d2705a464dd36eccec";
-
   var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + trailId + '&key=' + apiKey;
 
   $.ajax({
@@ -9,11 +8,80 @@ $(document).ready(function () {
             method: "GET",
             dataType: "JSON",
         }).then(function (trailResponse) {
-
           console.log(trailResponse)
+          localStorage.setItem("trailId", trailResponse.trails[0].id)
+          localStorage.setItem("trailName", trailResponse.trails[0].name)
 
 
         })
+
+
+  // Save trail for user  
+  $("#saveTrail").click(function () {
+    var trailId = localStorage.getItem("trailId")
+
+    $.post("/api/saveTrail/" + trailId)
+      .then(function (response) {
+        console.log(response)
+      })
+  })
+  
+  
+  
+  // Functionality to save review
+
+  function saveReview () {
+    var hashtags = []
+
+    $("#addHashtag").click(function () {
+      var hashtagVal = $("#hashtag").val().trim()
+      hashtags.push(hashtagVal)
+      var newTextVal = "#" + hashtagVal
+      var parentDiv = $("#addedHashtags")
+      var hashTagBadge = $('<span />')
+      hashTagBadge.addClass("badge badge-pill badge-primary")
+      hashTagBadge.text(newTextVal)
+      parentDiv.append(hashTagBadge)
+      $("#hashtag").val("")
+
+    })
+
+    var reviewForm = $("form.reviewForm")
+    reviewForm.on("submit", function () {
+      event.preventDefault()
+
+      var title = $("#title").val().trim()
+      var overallStars = $("#overallStars").val().trim()
+
+      var difficultyStars = $("#difficultyStars").val().trim()
+      var review = $("#body").val().trim()
+      var hashtagString = hashtags.toString()
+
+      var currentTrailName = localStorage.getItem("trailName")
+      var currentTrailId = localStorage.getItem("trailId")
+
+      var data = {
+        title: title,
+        trailName: currentTrailName,
+        trailId: currentTrailId,
+        overallStars: parseInt(overallStars),
+        difficultyStars: parseInt(difficultyStars),
+        review: review,
+        hashtags: hashtagString
+      }
+
+      // POST route to create review
+
+      $.post("/api/createReview", data)
+        .then(function (response) {
+          console.log(response)
+        })
+
+    });
+  }
+
+
+        
 
 
  
