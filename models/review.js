@@ -4,7 +4,13 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        stars: {
+        trailName: {
+            type: DataTypes.STRING
+        },
+        trailId: {
+            type: DataTypes.STRING
+        },
+        overallStars: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
@@ -22,6 +28,20 @@ module.exports = function (sequelize, DataTypes) {
 
 
     })
+
+    Review.associate = function (models) {
+        Review.belongsTo(models.User, {
+            foreignKey: {
+                allowNull: false
+            }
+        })
+
+        Review.belongsToMany(models.Hashtag, {
+            through: "ReviewHashtags", 
+            as: "Hashtags",
+            foreignKey: "ReviewId"
+        });
+    }
 
     return Review;
 }
