@@ -1,0 +1,26 @@
+.reviewForm{
+  padding: 35px;
+  text-align: justify;
+  background: #3C5148;
+  font-family: 'Montserrat', sans-serif;
+        font-weight: bolder;
+  font-size: 23px;
+  color: #5bc0de;
+  
+  
+}
+#body, #title, #overallStars, #difficultyStars, #hashtag{
+  font-family: 'Montserrat', sans-serif;
+}
+
+#addHashtag{
+  font-family: 'Montserrat', sans-serif;
+  padding: 7px;
+  margin-top: 12px;
+  }
+ 
+ .navbar{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 23px;
+  font-weight: bolder;  
+}

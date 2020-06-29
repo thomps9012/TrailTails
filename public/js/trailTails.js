@@ -149,7 +149,7 @@ $(document).ready(function () {
         var trailId = $("<p class=" + response.trails[i].id + ">");
         //console.log(trailId)
         var src = response.trails[i].imgMedium;
-        var img = $("<div class='card-img' 'backup_img'>").css("background-image", "url('" + src + "')");
+        var img = $("<div class='card-img'>").css("background-image", "url('" + src + "')", 'backup_img');
 
         // merge and add to page
         cardBody.append(title, trailLength, stars, condition, hikeBtn, trailId);

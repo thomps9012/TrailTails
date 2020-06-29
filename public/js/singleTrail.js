@@ -16,6 +16,7 @@ $(document).ready(function () {
         })
 
 
+<<<<<<< HEAD
   // Save trail for user  
   $("#saveTrail").click(function () {
     var trailId = localStorage.getItem("trailId")
@@ -85,6 +86,34 @@ $(document).ready(function () {
 
 
  
+=======
+  $(".backup_img").on("error", function(){
+        $(this).attr('src', "./assets/images/dog-2.jpg");
+    });
+    //creates cards with a trail infromation based off of Latitude and longitude
+    function createTrailList(response, i) {
+        var card = $("<div class='card'>");
+        var cardBody = $("<div class='card-body'>");
+        var title = $("<h3 class='card-title'>").text(response.trails[i].name);
+        // var summary = $("<p class='card-text'>").text(response.trails[i].summary);
+        var stars = $("<p class='card-text'>").text("Stars: " + response.trails[i].stars);
+        var trailLength = $("<p class='card-text'>").text("Trail Length: " + response.trails[i].length + " miles");
+        var condition = $("<p class='card-text'>").text("Trail condition: " + response.trails[i].conditionStatus);
+        var hikeBtn = $("<button class='btn btn-primary stretched-link'>View Trail</button>");
+        var trailId = $("<p class=" + response.trails[i].id + ">");
+        //console.log(trailId)
+        var src = response.trails[i].imgMedium;
+        var img = $("<div class='card-img'>").css("background-image", "url('" + src + "')", 'backup_img');
+
+        // merge and add to page
+        cardBody.append(title, trailLength, stars, condition, hikeBtn, trailId);
+        card.append(img, cardBody);
+        $("#trailList").append(card);
+        $('html, body').animate({
+            scrollTop: ($('#trailList').offset().top)
+        }, 500);
+    }
+>>>>>>> 886640c17134ee41cce9e624c4622f3ae3dfc944
  
   
 
