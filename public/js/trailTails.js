@@ -188,18 +188,6 @@ $(document).ready(function () {
 
     });
 
-    function loadSingleTrail (event) {
-        const currentId = event.currentTarget.attributes.value.value
-        window.location.href = "/singleTrail/" + currentId
-        // console.log(currentId)
-        // localStorage.setItem("trailId", currentId)
-        // setTimeout(function () {
-        //     window.location.href = "/singleTrail"
-        // }, 50)
-        return false;
-
-    }
-
     //click function on trail card
     $(document).on("click", '.stretched-link', function (event) {
         event.preventDefault(event);
