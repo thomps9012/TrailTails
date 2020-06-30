@@ -1,7 +1,92 @@
 $(document).ready(function () {
+
   var trailId = window.location.href.substring(34)
   var apiKey = "200712211-0e0047c0b205b2d2705a464dd36eccec";
   var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + trailId + '&key=' + apiKey;
+  let currentDay;
+
+  // day of the week function
+  function day() {
+    var d = new Date();
+    var weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+    var currentDay = weekday[d.getDay()];
+    return currentDay
+  }
+  // weather data api call
+  function callWeather(traillat, traillong) {
+    var weatherAPIKey = "bdc52f64afd883566cab72d748eec127";
+    var forecastURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + traillat + "&lon=" + traillong + "&units=imperial&exclude=minutely,hourly&appid=" + weatherAPIKey;
+    $.ajax({
+      url: forecastURL,
+      method: "GET",
+      dataType: "JSON",
+    }).then(function (data) {
+      var i = 0;
+      $("#currentWeather").empty();
+      console.log(data);
+     
+      
+      currentDay = day()
+
+      createWeatherForecast(data, currentDay)
+
+      data.daily.forEach(item => {
+        let dayTemp = item.day.temp
+        // createWeeklyForecasts(dayTemp)
+        })
+    });
+  };
+  // appending weather data to carousel card
+  function createWeatherForecast(data, currentDay) {
+    var todaysDate = new Date ()
+    var currentMonth = todaysDate.getMonth() + 1
+    var today = todaysDate.getDate()
+    // console.log(currentMonth, today)
+    console.log(data.current.weather[0])
+    //create html content for current weather
+    var weatherCarousel = $("<div>").addClass("card card-weather");
+    var cardBody = $("<div>").addClass("card-body");
+    var weatherDate = $("<div>").addClass("weather-date-location");
+    var day = $("<h3>").text(currentDay);
+    var date = $("<p>").addClass("text-gray")
+    var spanEl = $("<span>")
+    spanEl.addClass("weather-date")
+    spanEl.text(currentMonth + "/" + today)
+    date.append(spanEl)
+    var weatherData = $("<div>").addClass("weather-data d-flex");
+    var auto = $("<div>").addClass("mr-auto");
+    var temp = $("<h4>").addClass("display-3")
+    temp.text(data.current.temp)
+    var spanEl2 = $("<span>")
+    spanEl2.addClass("symbol")
+    spanEl2.text("°F");
+    temp.append(spanEl2)
+    var description = $("<p>").text(data.current.weather[0]["main"]);
+    var weeklyBody = $("<div>").addClass("card-body p-0");
+    var weeklyFlex = $("<div>").addClass("d-flex weakly-weather");
+    var img = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + data.current.weather[0]["icon"] + "@4x" + ".png")
+    
+    //merge and add to page
+    weeklyBody.append(weeklyFlex);
+    cardBody.append(weatherDate, day, date, img, description, weatherData, auto, temp);
+    weatherCarousel.append(cardBody, weeklyBody);
+    $("#currentWeather").append(weatherCarousel);
+  }
+
+  function createWeeklyForecasts(dayTemp) {
+    var weeklyItem = $("<div>").addClass("weakly-weather-item");
+    var weeklyDay = $("<p>").addClass("mb-1").text(day++)
+    var weeklyTemp = $("<p>").addClass("mb-0").text(dayTemp + "°F")
+    weeklyBody.append(weeklyItem, weeklyDay, weeklyTemp)
+
+  }
 
   $.ajax({
             url: trailIdURL,
@@ -9,111 +94,83 @@ $(document).ready(function () {
             dataType: "JSON",
         }).then(function (trailResponse) {
           console.log(trailResponse)
+          var iFrameEl = $("#directionMap")
+          var originLat = localStorage.getItem("locationLat")
+          var originLong = localStorage.getItem("locationLong")
+          var trailLat = trailResponse.trails[0].latitude
+          var trailLong = trailResponse.trails[0].longitude
+          var srcURL = "https://www.google.com/maps/embed/v1/directions?origin=" + originLat + "," + originLong + "&destination=" + trailLat + "," + trailLong + "&key=AIzaSyDWH78cK63EUcdoo_tn0jlVn0sskHOb4ZI"
+          iFrameEl.attr("src", srcURL)
+          iFrameEl.css("margin-top", "125px")
+          iFrameEl.css("margin-bottom", "50px")
+          iFrameEl.css("margin-left", "50px")
+          // $(".directionsEl").css("color", "black")
           localStorage.setItem("trailId", trailResponse.trails[0].id)
           localStorage.setItem("trailName", trailResponse.trails[0].name)
 
+          var imageParentDiv = $("#imageParentDiv")
+          var imageEl = $("<img>")
+          imageEl.addClass("d-block w-100 carousel-inner")
+          imageEl.css("height", "95%")
+          imageEl.attr("alt", "First slide")
+          imageEl.attr("src", trailResponse.trails[0].imgMedium)
+          imageParentDiv.append(imageEl)
 
-        })
 
+          var trailInfoDiv = $("#trailInfoDiv")
+          var trailNameEl = $("<h5>")
+          trailNameEl.text(trailResponse.trails[0].name)
+          var trailLocationEl = $("<p>")
+          trailLocationEl.text(trailResponse.trails[0].location)
+          var trailLatLongEl = $("<p>")
+          trailLatLongEl.text("Longitude: " + trailLong + " / " + "Latitude: " + trailLat)
+          var buttonEl = $("<button>")
+          buttonEl.text("Trail Info")
+          buttonEl.addClass("btn btn-primary")
+          buttonEl.attr("id", "modalBtn")
+          buttonEl.attr("type", "submit")
+          buttonEl.attr("data-toggle", "modal")
+          buttonEl.attr("data-target", "#trailModal")
+          buttonEl.css("margin", "5px")
+          var reviewButtonEl = $("<a>")
+          reviewButtonEl.text("Leave Review")
+          reviewButtonEl.css("appearance", "button")
+          reviewButtonEl.addClass("btn btn-primary")
+          reviewButtonEl.attr("id", "reviewBtn")
+          reviewButtonEl.attr("href", "/review")
+          reviewButtonEl.css("margin", "5px")
+          var saveTrailBtnEl = $("<button>")
+          saveTrailBtnEl.addClass("btn btn-primary")
+          saveTrailBtnEl.attr("id", "saveTrail")
+          saveTrailBtnEl.text("Save Trail")
+          saveTrailBtnEl.css("margin", "5px")
 
-<<<<<<< HEAD
+          trailInfoDiv.append(trailNameEl, trailLocationEl, trailLatLongEl, buttonEl, reviewButtonEl, saveTrailBtnEl)
+
+          callWeather(trailLat, trailLong);
+
+        })   
+
   // Save trail for user  
-  $("#saveTrail").click(function () {
+  $(document).on("click", "#saveTrail", function (event) {
     var trailId = localStorage.getItem("trailId")
 
-    $.post("/api/saveTrail/" + trailId)
-      .then(function (response) {
-        console.log(response)
+    $.post("/api/saveTrail/" + trailId, function () {
+      console.log("Saved Trail Successful")
+    })
+      .fail(function () {
+        console.log("Something went wrong.")
       })
-  })
-  
-  
-  
-  // Functionality to save review
-
-  function saveReview () {
-    var hashtags = []
-
-    $("#addHashtag").click(function () {
-      var hashtagVal = $("#hashtag").val().trim()
-      hashtags.push(hashtagVal)
-      var newTextVal = "#" + hashtagVal
-      var parentDiv = $("#addedHashtags")
-      var hashTagBadge = $('<span />')
-      hashTagBadge.addClass("badge badge-pill badge-primary")
-      hashTagBadge.text(newTextVal)
-      parentDiv.append(hashTagBadge)
-      $("#hashtag").val("")
-
+      
     })
 
-    var reviewForm = $("form.reviewForm")
-    reviewForm.on("submit", function () {
-      event.preventDefault()
-
-      var title = $("#title").val().trim()
-      var overallStars = $("#overallStars").val().trim()
-
-      var difficultyStars = $("#difficultyStars").val().trim()
-      var review = $("#body").val().trim()
-      var hashtagString = hashtags.toString()
-
-      var currentTrailName = localStorage.getItem("trailName")
-      var currentTrailId = localStorage.getItem("trailId")
-
-      var data = {
-        title: title,
-        trailName: currentTrailName,
-        trailId: currentTrailId,
-        overallStars: parseInt(overallStars),
-        difficultyStars: parseInt(difficultyStars),
-        review: review,
-        hashtags: hashtagString
-      }
-
-      // POST route to create review
-
-      $.post("/api/createReview", data)
-        .then(function (response) {
-          console.log(response)
-        })
-
-    });
-  }
+ 
 
 
         
 
 
  
-=======
-  $(".backup_img").on("error", function(){
-        $(this).attr('src', "./assets/images/dog-2.jpg");
-    });
-    //creates cards with a trail infromation based off of Latitude and longitude
-    function createTrailList(response, i) {
-        var card = $("<div class='card'>");
-        var cardBody = $("<div class='card-body'>");
-        var title = $("<h3 class='card-title'>").text(response.trails[i].name);
-        // var summary = $("<p class='card-text'>").text(response.trails[i].summary);
-        var stars = $("<p class='card-text'>").text("Stars: " + response.trails[i].stars);
-        var trailLength = $("<p class='card-text'>").text("Trail Length: " + response.trails[i].length + " miles");
-        var condition = $("<p class='card-text'>").text("Trail condition: " + response.trails[i].conditionStatus);
-        var hikeBtn = $("<button class='btn btn-primary stretched-link'>View Trail</button>");
-        var trailId = $("<p class=" + response.trails[i].id + ">");
-        //console.log(trailId)
-        var src = response.trails[i].imgMedium;
-        var img = $("<div class='card-img'>").css("background-image", "url('" + src + "')", 'backup_img');
-
-        // merge and add to page
-        cardBody.append(title, trailLength, stars, condition, hikeBtn, trailId);
-        card.append(img, cardBody);
-        $("#trailList").append(card);
-        $('html, body').animate({
-            scrollTop: ($('#trailList').offset().top)
-        }, 500);
-    }
->>>>>>> 886640c17134ee41cce9e624c4622f3ae3dfc944
  
   
 

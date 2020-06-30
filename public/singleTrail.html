@@ -23,6 +23,16 @@
     <!-- JQuery Script -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <!-- AJAX CDN -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <!-- Bootstrap Script -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- Font Awesome script -->
     <script src="https://kit.fontawesome.com/95c8a755bf.js" crossorigin="anonymous"></script>
     <!-- google maps api -->
@@ -38,6 +48,9 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <div class="navbar-header">
+      <a class="navbar-brand" href="/members">
+        Home
+      </a>
       <a class="navbar-brand" href="/profile">
         Profile
       </a>
@@ -56,65 +69,14 @@
     <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
   </ol>
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <!-- image source needs to be added in via api call -->
-        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
-          alt="First slide">
-      <div class="carousel-caption d-none d-md-block">
-        <!-- pulled in via api call -->
-        <h5>Trail Name</h5>
-        <!-- pulled in via api call -->
-        <p>Longitude / Latitude</p>
-      </div>
+    <div id="imageParentDiv" class="carousel-item active">
+      <!-- image added dynamically via api call -->
+      <!-- Trail Info added in dynamically -->
+      <div id="trailInfoDiv" class="carousel-caption d-none d-md-block"></div>
     </div>
-    <div class="carousel-item">
+    <div id="currentWeather" class="carousel-item">
       <!--weather card-->
-                <div class="card card-weather">
-                    <div class="card-body">
-                        <div class="weather-date-location">
-                            <h3>Friday</h3>
-                            <p class="text-gray"> <span class="weather-date">25 March, 2019</span> <span class="weather-location">Sydney, Australia</span> </p>
-                        </div>
-                        <div class="weather-data d-flex">
-                            <div class="mr-auto">
-                                <h4 class="display-3">32 <span class="symbol">°</span>C</h4>
-                                <p> Cloudy </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="d-flex weakly-weather">
-                            <div class="weakly-weather-item">
-                                <p class="mb-0"> Sun </p> <i class="mdi mdi-weather-cloudy"></i>
-                                <p class="mb-0"> 30° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Mon </p> <i class="mdi mdi-weather-hail"></i>
-                                <p class="mb-0"> 31° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Tue </p> <i class="mdi mdi-weather-partlycloudy"></i>
-                                <p class="mb-0"> 28° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Wed </p> <i class="mdi mdi-weather-pouring"></i>
-                                <p class="mb-0"> 30° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Thu </p> <i class="mdi mdi-weather-pouring"></i>
-                                <p class="mb-0"> 29° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Fri </p> <i class="mdi mdi-weather-snowy-rainy"></i>
-                                <p class="mb-0"> 31° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Sat </p> <i class="mdi mdi-weather-snowy"></i>
-                                <p class="mb-0"> 32° </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <!--weather card ends-->
       <div class="carousel-caption d-none d-md-block">
         <h5>Weather Widget</h5>
@@ -123,14 +85,12 @@
       </div>
     </div>
     <div class="carousel-item">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 style="color: black" class="directions">Directions Map</h5>
+        <p style="color: black" class="directions">Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+      </div>
       <!-- information pulled in via api calls -->
-      <iframe id="directionMap" width="600" height="450" frameborder="0" style="border:0"
-          src="https://www.google.com/maps/embed/v1/directions?origin="+ searchLat, searchLong+ "&destination="+ trailLat,trailLong +"&key=AIzaSyDWH78cK63EUcdoo_tn0jlVn0sskHOb4ZI"
-allowfullscreen></iframe>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Directions Map</h5>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-      </div>
+      <iframe id="directionMap" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> 
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
@@ -142,127 +102,18 @@ allowfullscreen></iframe>
     <span class="sr-only">Next</span>
   </a>
 </div>
-<!--Carousel Wrapper-->
-<div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-ride="carousel">
-  <!--Indicators-->
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-  </ol>
-  <!--/.Indicators-->
-  <!--Slides-->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="view">
-      <!-- image source needs to be added in via api call -->
-        <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
-          alt="First slide">
-        <div class="mask rgba-black-light"></div>
-      </div>
-      <div class="carousel-caption d-none d-md-block">
-        <h3>Trail Name</h3>
-        <p>Latitude / Longitude</p>
-        <!-- Trail Info Button trigger modal-->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Trail Info
-</button>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <!--weather card-->
-                <div class="card card-weather">
-                    <div class="card-body">
-                        <div class="weather-date-location">
-                            <h3>Friday</h3>
-                            <p class="text-gray"> <span class="weather-date">25 March, 2019</span> <span class="weather-location">Sydney, Australia</span> </p>
-                        </div>
-                        <div class="weather-data d-flex">
-                            <div class="mr-auto">
-                                <h4 class="display-3">32 <span class="symbol">°</span>C</h4>
-                                <p> Cloudy </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="d-flex weakly-weather">
-                            <div class="weakly-weather-item">
-                                <p class="mb-0"> Sun </p> <i class="mdi mdi-weather-cloudy"></i>
-                                <p class="mb-0"> 30° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Mon </p> <i class="mdi mdi-weather-hail"></i>
-                                <p class="mb-0"> 31° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Tue </p> <i class="mdi mdi-weather-partlycloudy"></i>
-                                <p class="mb-0"> 28° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Wed </p> <i class="mdi mdi-weather-pouring"></i>
-                                <p class="mb-0"> 30° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Thu </p> <i class="mdi mdi-weather-pouring"></i>
-                                <p class="mb-0"> 29° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Fri </p> <i class="mdi mdi-weather-snowy-rainy"></i>
-                                <p class="mb-0"> 31° </p>
-                            </div>
-                            <div class="weakly-weather-item">
-                                <p class="mb-1"> Sat </p> <i class="mdi mdi-weather-snowy"></i>
-                                <p class="mb-0"> 32° </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--weather card ends-->
-      </div>
-      <div class="carousel-caption d-none d-md-block">
-        <h3>Weather Map</h3>
-        <p>Quick Details / Trail Name</p>
-       </div>
-    </div>
-    <div class="carousel-item">
-      <!--Mask color-->
-      <div class="view">
-        <iframe id="directionMap" width="600" height="450" frameborder="0" style="border:0"
-          src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJ57j9hR8EMYgRYGVMiLorWng&destination=47.625215,-122.337326&key=AIzaSyDWH78cK63EUcdoo_tn0jlVn0sskHOb4ZI"
-          allowfullscreen></iframe>
-        <div class="mask rgba-black-slight"></div>
-      </div>
-      <div class="carousel-caption d-none d-md-block">
-        <h3>Direction Map</h3>
-        <p>Latitude / Longitude of Trail</p>
-      </div>
-    </div>
-  </div>
-  <!--/.Slides-->
-  <!--Controls-->
-  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-  <!--/.Controls-->
-</div>
+
 <!--/.Carousel Wrapper-->
 
 <!-- Modal code that pops up trail card info -->
 
 <!-- Central Modal Medium Info -->
- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="trailModal" tabindex="-1" role="dialog" aria-labelledby="trailModalLabel" aria-hidden="true" style="display: none;">
    <div class="modal-dialog modal-notify modal-info" role="document">
      <!--Content-->
      <div class="modal-header">
      <!-- will be populated via the api call -->
-        <h5 class="modal-title" id="exampleModalLabel">Trail Name</h5>
+        <h5 class="modal-title" id="trailModalLabel">Trail Name</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -296,6 +147,5 @@ allowfullscreen></iframe>
 <!-- trail info and ads -->
 </body>
 <script type="text/javascript" src="/js/singleTrail.js"></script>
-<script src="js/bootstrap.js"></script>
 
 </html>

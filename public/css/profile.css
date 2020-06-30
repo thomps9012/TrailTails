@@ -38,3 +38,19 @@ button:hover, a:hover {
   font-size: 23px;
   font-weight: bolder;  
 }
+
+#profileContainer {
+  margin: auto;
+  width: 50%;
+  border: 3px;
+  padding: 10px;
+}
+
+#profileDiv {
+  margin-left: 175px;
+  margin-top: 100px;
+}
+
+#reviewSavedDiv {
+  padding: 10px;
+}

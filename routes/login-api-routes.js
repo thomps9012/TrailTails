@@ -36,4 +36,8 @@ module.exports = function (app) {
         req.logout();
         res.redirect("/");
     });
+
+    app.get("/api/user_data", function(req, res){
+        res.send(req.user)
+    })
 };

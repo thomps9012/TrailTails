@@ -13,6 +13,9 @@
   <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <div class="navbar-header">
+      <a class="navbar-brand" href="/members">
+        Home
+      </a>
       <a class="navbar-brand" href="/profile">
         Profile
       </a>
@@ -22,35 +25,28 @@
     </div>
   </div>
 </nav>
-  <div class="container">
+  <div id="profileContainer" class="container">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
+      <div id="profileDiv" class="col-md-6 col-md-offset-3">
         <!-- <h2>Welcome <span class="member-name"></span></h2> -->
         <!-- Member Card -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div class="card">
-  <img src="img.jpg" alt="John" style="width:100%">
-  <h1>John Doe (pulled from sql)</h1>
-  <p>Location (populated by geolocate)</p>
+<div id="userInfoDiv" class="card">
+  <!-- <img src="img.jpg" alt="John" style="width:100%"> -->
+  <!-- User info populated here -->
   <button onclick="window.location.href='/members';"> Let's Hike!</button>
 </div>
-<section class="saved-trails">
-                    <div class="saved-card-header">Saved Trails</div>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
-                        <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                    </div>
-                </section>
-                <section class="reviewed-trails">
-                    <div class="reviewed-card-header">Reviewed Trails</div>
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" a href="#">Cras justo odio <span class="badge badge-primary badge-pill">14</span></li>
-                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" a href="#">Dapibus ac facilisis in<span class="badge badge-primary badge-pill">2</span></li>
-                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" a href="#">Morbi leo risus<span class="badge badge-primary badge-pill">1</span></li>
-                    </ul>
-                </section>
+    <div id="reviewSavedDiv">
+      <section class="saved-trails">
+        <div class="saved-card-header">Saved Trails</div>
+        <div id="savedTrailParentDiv" class="list-group"></div>
+        </section>
+      <section class="reviewed-trails">
+        <div class="reviewed-card-header">Reviewed Trails</div>
+        <div id="reviewedTrailParentDiv" class="list-group"></div>
+      </section>
+      </div>
       </div>
     </div>
   </div>

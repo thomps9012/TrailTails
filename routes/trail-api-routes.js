@@ -9,7 +9,7 @@ module.exports = function (app) {
     // Getting three most recent saved trails for user
 
     app.get("/savedTrails", function (req, res){
-        db.SavedTrail.findAll({where: {UserId: req.user.id}, limit: 3})
+        db.SavedTrail.findAll({where: {UserId: req.user.id}, limit: 3, order: [['updatedAt', 'DESC']]})
         .then(function (data) {
             res.json(data)
         })
@@ -19,7 +19,7 @@ module.exports = function (app) {
     // Getting 3 most recent reviewed trails for home page
 
     app.get("/savedReviews", function (req, res){
-        db.Review.findAll({where: {UserId: req.user.id}, limit: 3})
+        db.Review.findAll({ where: { UserId: req.user.id }, limit: 3, order: [['updatedAt', 'DESC']]})
         .then(function(data) {
             res.json(data)
         })
@@ -54,14 +54,13 @@ module.exports = function (app) {
                 }
             })
 
-            console.log(savedReview.id)
-            console.log(savedHashTag[0].dataValues.id)
-
             await db.ReviewHashtag.create({
                 HashtagId: savedHashTag[0].dataValues.id,
                 ReviewId: savedReview.id
                 })
             }) 
+
+            res.send(savedReview)
         
         }
 

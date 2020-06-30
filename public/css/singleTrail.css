@@ -139,6 +139,11 @@
      padding: 1rem;
      text-align: center
  }
+ .carousel-inner{
+    padding: 24px;
+    height: 300px;
+    width: 100%;
+    }
 
  .mb-0,
  .my-0 {
@@ -153,4 +158,53 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 23px;
   font-weight: bolder;  
+}
+
+.modal-backdrop {
+position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -2;
+  background-color: #000000;
+
+}
+
+.modal {
+  background: green;
+  position: absoßute;
+  float: left;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.carousel-caption {
+    color: black;
+}
+
+#toast {
+  border-radius: 4px;
+  border-width: 1px;
+  font-size: 13px;
+  line-height: 19.5px;
+  margin: 0px 0px 16px;
+  padding: 12px 59.5px 12px 20px;
+  text-align: left;
+  width: 300px;
+  min-height: 80px;
+  position: fixed;
+  top: 10px;
+  right: -320px;
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+#toast.success {
+  opacity: 1;
+  right: 10px;
+  background-color: hsl(94, 40%, 86%);
+  color: hsl(94, 90%, 16%);
+  transition: all 1.2s;
 }
