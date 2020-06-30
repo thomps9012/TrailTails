@@ -140,10 +140,41 @@
      text-align: center
  }
  .carousel-inner{
-    padding: 24px;
-    height: 300px;
     width: 100%;
     }
+
+ .carousel-item {
+   /* background-size: cover;
+   background-position: center center; */
+   -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+ }  
+
+ .directions {
+    position: relative;
+    left: auto;
+    right: auto;
+    margin-top: 25px;
+
+ }
+
+ #trailInfoDiv {
+      top: 65%;
+     transform: translateY(-65%);
+     bottom: initial;
+
+ }
+ 
+ #directionMap {
+    /* position: absolute; */
+    top: 20px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80%;
+    width: 100%;
+ }
 
  .mb-0,
  .my-0 {
@@ -159,7 +190,7 @@
   font-size: 23px;
   font-weight: bolder;  
 }
-
+/* 
 .modal-backdrop {
 position: fixed;
   top: 0;
@@ -167,10 +198,10 @@ position: fixed;
   bottom: 0;
   left: 0;
   z-index: -2;
-  background-color: #000000;
+  background-color: #000000; */
 
-}
-
+/* } */
+/* 
 .modal {
   background: green;
   position: absoßute;
@@ -178,33 +209,5 @@ position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-}
+} */
 
-.carousel-caption {
-    color: black;
-}
-
-#toast {
-  border-radius: 4px;
-  border-width: 1px;
-  font-size: 13px;
-  line-height: 19.5px;
-  margin: 0px 0px 16px;
-  padding: 12px 59.5px 12px 20px;
-  text-align: left;
-  width: 300px;
-  min-height: 80px;
-  position: fixed;
-  top: 10px;
-  right: -320px;
-  opacity: 0;
-  transition: all 0.5s;
-}
-
-#toast.success {
-  opacity: 1;
-  right: 10px;
-  background-color: hsl(94, 40%, 86%);
-  color: hsl(94, 90%, 16%);
-  transition: all 1.2s;
-}

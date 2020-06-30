@@ -17,7 +17,7 @@
     <!-- Font Awesome Icon Library -->
     <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
     <!--CUSTOM-->
-    <link rel="stylesheet" href="./css/singleTrail.css">
+    <link rel="stylesheet" type="text/css" href="/css/singleTrail.css">
    
 
     <!-- JQuery Script -->
@@ -85,12 +85,14 @@
       </div>
     </div>
     <div class="carousel-item">
-      <div class="carousel-caption d-none d-md-block">
-        <h5 style="color: black" class="directions">Directions Map</h5>
-        <p style="color: black" class="directions">Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+      <!-- information pulled in via api calls -->
+      <iframe id="directionMap" frameborder="0" style="border:0" allowfullscreen></iframe>
+      <div class="carousel-caption directions d-none d-md-block">
+        <h5 id="mapHeader" style="color: black"></h5>
+        <!-- <p style="color: black" >Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p> -->
       </div>
       <!-- information pulled in via api calls -->
-      <iframe id="directionMap" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> 
+
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">

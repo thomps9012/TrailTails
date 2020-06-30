@@ -102,17 +102,15 @@ $(document).ready(function () {
           var trailLong = trailResponse.trails[0].longitude
           var srcURL = "https://www.google.com/maps/embed/v1/directions?origin=" + originLat + "," + originLong + "&destination=" + trailLat + "," + trailLong + "&key=AIzaSyDWH78cK63EUcdoo_tn0jlVn0sskHOb4ZI"
           iFrameEl.attr("src", srcURL)
-          iFrameEl.css("margin-top", "125px")
-          iFrameEl.css("margin-bottom", "50px")
-          iFrameEl.css("margin-left", "50px")
-          // $(".directionsEl").css("color", "black")
+          var mapHeader = $("#mapHeader")
+          mapHeader.text("Directions to " + trailResponse.trails[0].name)
           localStorage.setItem("trailId", trailResponse.trails[0].id)
           localStorage.setItem("trailName", trailResponse.trails[0].name)
 
           var imageParentDiv = $("#imageParentDiv")
           var imageEl = $("<img>")
           imageEl.addClass("d-block w-100 carousel-inner")
-          imageEl.css("height", "95%")
+          imageEl.css("height", "100%")
           imageEl.attr("alt", "First slide")
           imageEl.attr("src", trailResponse.trails[0].imgMedium)
           imageParentDiv.append(imageEl)
