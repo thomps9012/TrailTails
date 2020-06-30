@@ -6,6 +6,21 @@ $(document).ready(function () {
   var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + trailId + '&key=' + apiKey;
   let currentDay;
 
+  function capitalizeFirstLetters(string) {
+    var lcStr = string.toLowerCase()
+    var firstCapWords
+    var wordArr = lcStr.split(" ")
+    var newWordArr = []
+    for (i = 0; i < wordArr.length; i++) {
+      var firstChar = wordArr[i].charAt(0).toUpperCase()
+      var word = firstChar + wordArr[i].substring(1)
+      newWordArr.push(word)
+    }
+
+    firstCapWords = newWordArr.join(' ')
+    return firstCapWords
+  }
+
   // day of the week function
   function day() {
     var d = new Date();
@@ -29,7 +44,8 @@ $(document).ready(function () {
       method: "GET",
       dataType: "JSON",
     }).then(function (data) {
-      var i = 0;
+
+      
       $("#currentWeather").empty();
       console.log(data);
      
@@ -38,9 +54,43 @@ $(document).ready(function () {
 
       createWeatherForecast(data, currentDay)
 
-      data.daily.forEach(item => {
-        let dayTemp = item.day.temp
-        // createWeeklyForecasts(dayTemp)
+      data.daily.forEach(day =>{
+        console.log(day)
+        var dayTemp = Math.floor(day.temp.day)
+        var icon = day.weather[0]["icon"]
+        var dateNow = new Date(day.dt * 1000)
+        var month = dateNow.getMonth() + 1
+        var date = dateNow.getDate()
+        var day = dateNow.getDay()
+        let wordDay;
+
+        switch(day) {
+          case 0: 
+            wordDay = "Sunday"
+          break;
+          case 1:
+            wordDay = "Monday"
+            break;
+          case 2:
+            wordDay = "Tuesday"
+            break;
+          case 3:
+            wordDay = "Wednesday"
+            break;
+          case 4:
+            wordDay = "Thursday"
+            break;
+          case 5:
+            wordDay = "Friday"
+            break;
+          case 6:
+            wordDay = "Saturday"
+            break;
+        }
+        (wordDay, month, date)
+        var today = wordDay + ", " + month + "/" + date
+
+        createWeeklyForecasts(dayTemp, today, icon)
         })
     });
   };
@@ -49,9 +99,9 @@ $(document).ready(function () {
     var todaysDate = new Date ()
     var currentMonth = todaysDate.getMonth() + 1
     var today = todaysDate.getDate()
-    // console.log(currentMonth, today)
-    console.log(data.current.weather[0])
     //create html content for current weather
+    var weatherHeader = $("<h5>").text("Current Weather")
+    weatherHeader.addClass("text-center")
     var weatherCarousel = $("<div>").addClass("card card-weather");
     var cardBody = $("<div>").addClass("card-body");
     var weatherDate = $("<div>").addClass("weather-date-location");
@@ -64,28 +114,41 @@ $(document).ready(function () {
     var weatherData = $("<div>").addClass("weather-data d-flex");
     var auto = $("<div>").addClass("mr-auto");
     var temp = $("<h4>").addClass("display-3")
-    temp.text(data.current.temp)
+    temp.text(Math.floor(data.current.temp))
     var spanEl2 = $("<span>")
     spanEl2.addClass("symbol")
     spanEl2.text("°F");
     temp.append(spanEl2)
-    var description = $("<p>").text(data.current.weather[0]["main"]);
+    var description = capitalizeFirstLetters(data.current.weather[0]["description"])
+    var descriptionEl = $("<p>").text("Current Conditions: " + description);
     var weeklyBody = $("<div>").addClass("card-body p-0");
     var weeklyFlex = $("<div>").addClass("d-flex weakly-weather");
+    weeklyFlex.attr("id", "weeklyFlex")
     var img = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + data.current.weather[0]["icon"] + "@4x" + ".png")
     
     //merge and add to page
+    auto.append(temp, descriptionEl, img)
+    weatherData.append(auto)
+    weatherDate.append(day, date)
     weeklyBody.append(weeklyFlex);
-    cardBody.append(weatherDate, day, date, img, description, weatherData, auto, temp);
+    cardBody.append(weatherHeader, weatherDate, weatherData);
     weatherCarousel.append(cardBody, weeklyBody);
     $("#currentWeather").append(weatherCarousel);
   }
 
-  function createWeeklyForecasts(dayTemp) {
+  function createWeeklyForecasts(dayTemp, today, icon) {
+    console.log("this")
+    var weeklyFlex = $("#weeklyFlex")
     var weeklyItem = $("<div>").addClass("weakly-weather-item");
-    var weeklyDay = $("<p>").addClass("mb-1").text(day++)
-    var weeklyTemp = $("<p>").addClass("mb-0").text(dayTemp + "°F")
-    weeklyBody.append(weeklyItem, weeklyDay, weeklyTemp)
+    var weeklyDay = $("<p>")
+    var weeklyImg = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + icon  + ".png")
+    weeklyDay.addClass("mb-1")
+    weeklyDay.text(today)
+    var weeklyTemp = $("<p>")
+    weeklyTemp.addClass("mb-0")
+    weeklyTemp.text(dayTemp + "°F")
+    weeklyItem.append(weeklyDay, weeklyTemp, weeklyImg)
+    weeklyFlex.append(weeklyItem)
 
   }
 
@@ -94,7 +157,6 @@ $(document).ready(function () {
             method: "GET",
             dataType: "JSON",
         }).then(function (trailResponse) {
-          console.log(trailResponse)
           var iFrameEl = $("#directionMap")
           var originLat = localStorage.getItem("locationLat")
           var originLong = localStorage.getItem("locationLong")
@@ -162,73 +224,5 @@ $(document).ready(function () {
       })
       
     })
-
- 
-
-
-        
-
-
- 
- 
-  
-
-// google maps javascript
-// REQUIRES jquery.livequery
-  //  $('.google-map iframe:visible').livequery(function() {
-  //    var mapFrame = $(this);
-  //    if (!$(mapFrame).hasClass('map-refreshed')) {
-  //      mapFrame.attr('src', mapFrame.attr('src')+'');
-  //      mapFrame.addClass('map-refreshed');
-  //   }
-// });
-// function initMap() {
-//         var directionsRenderer = new google.maps.DirectionsRenderer;
-//         var directionsService = new google.maps.DirectionsService;
-//         var map = new google.maps.Map(document.getElementById('map'), {
-//           zoom: 7,
-//           center: {lat: 41.85, lng: -87.65}
-//         });
-//         directionsRenderer.setMap(map);
-//         directionsRenderer.setPanel(document.getElementById('right-panel'));
-
-//         var control = document.getElementById('floating-panel');
-//         control.style.display = 'block';
-//         map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
-
-//         var onChangeHandler = function() {
-//           calculateAndDisplayRoute(directionsService, directionsRenderer);
-//         };
-//         document.getElementById('start').addEventListener('change', onChangeHandler);
-//         document.getElementById('end').addEventListener('change', onChangeHandler);
-//       }
-
-//       function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-//         var start = document.getElementById('start').value;
-//         var end = document.getElementById('end').value;
-//         directionsService.route({
-//           origin: start,
-//           destination: end,
-//           travelMode: 'DRIVING'
-//         }, function(response, status) {
-//           if (status === 'OK') {
-//             directionsRenderer.setDirections(response);
-//           } else {
-//             window.alert('Directions request failed due to ' + status);
-//           }
-//         });
-//       }
-
-//openweather map api and javascript
-// (function() {
-
-
-
-
-
-
-// google maps api call
-
-// appending google maps iframe to carousel card
 
 })
