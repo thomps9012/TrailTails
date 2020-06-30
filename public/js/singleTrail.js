@@ -96,11 +96,12 @@ $(document).ready(function () {
   };
   // appending weather data to carousel card
   function createWeatherForecast(data, currentDay) {
+    var trailName = localStorage.getItem("trailName")
     var todaysDate = new Date ()
     var currentMonth = todaysDate.getMonth() + 1
     var today = todaysDate.getDate()
     //create html content for current weather
-    var weatherHeader = $("<h5>").text("Current Weather")
+    var weatherHeader = $("<h5>").text("Current Weather at " + trailName)
     weatherHeader.addClass("text-center")
     var weatherCarousel = $("<div>").addClass("card card-weather");
     var cardBody = $("<div>").addClass("card-body");
@@ -185,14 +186,14 @@ $(document).ready(function () {
           trailLocationEl.text(trailResponse.trails[0].location)
           var trailLatLongEl = $("<p>")
           trailLatLongEl.text("Longitude: " + trailLong + " / " + "Latitude: " + trailLat)
-          var buttonEl = $("<button>")
-          buttonEl.text("Trail Info")
-          buttonEl.addClass("btn btn-primary")
-          buttonEl.attr("id", "modalBtn")
-          buttonEl.attr("type", "submit")
-          buttonEl.attr("data-toggle", "modal")
-          buttonEl.attr("data-target", "#trailModal")
-          buttonEl.css("margin", "5px")
+          // var buttonEl = $("<button>")
+          // buttonEl.text("Trail Info")
+          // buttonEl.addClass("btn btn-primary")
+          // buttonEl.attr("id", "modalBtn")
+          // buttonEl.attr("type", "submit")
+          // buttonEl.attr("data-toggle", "modal")
+          // buttonEl.attr("data-target", "#trailModal")
+          // buttonEl.css("margin", "5px")
           var reviewButtonEl = $("<a>")
           reviewButtonEl.text("Leave Review")
           reviewButtonEl.css("appearance", "button")
@@ -206,7 +207,7 @@ $(document).ready(function () {
           saveTrailBtnEl.text("Save Trail")
           saveTrailBtnEl.css("margin", "5px")
 
-          trailInfoDiv.append(trailNameEl, trailLocationEl, trailLatLongEl, buttonEl, reviewButtonEl, saveTrailBtnEl)
+          trailInfoDiv.append(trailNameEl, trailLocationEl, trailLatLongEl, reviewButtonEl, saveTrailBtnEl)
 
           callWeather(trailLat, trailLong);
 
