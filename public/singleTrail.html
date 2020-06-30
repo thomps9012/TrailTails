@@ -111,27 +111,19 @@
 
 <!-- Central Modal Medium Info -->
  <div class="modal fade" id="trailModal" tabindex="-1" role="dialog" aria-labelledby="trailModalLabel" aria-hidden="true" style="display: none;">
-   <div class="modal-dialog modal-notify modal-info" role="document">
+   <div class="modal-dialog" role="document">
      <!--Content-->
-     <div class="modal-header">
+     <div id="modalHeader" class="modal-header">
      <!-- will be populated via the api call -->
-        <h5 class="modal-title" id="trailModalLabel">Trail Name</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div id="modalBody" class="modal-body">
         <!-- api get requests need to populate data below-->
-          <p>Difficulty</p>
-          <p>Stars</p>
-          <p>Star Votes</p>
-          <p>Location</p>
-          <p>Length</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <!-- need to add in an api request to save trail to db -->
-        <button type="button" class="btn btn-primary">Save Trail</button>
       </div>
 
      <!--/.Content-->

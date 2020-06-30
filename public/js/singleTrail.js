@@ -158,6 +158,7 @@ $(document).ready(function () {
             method: "GET",
             dataType: "JSON",
         }).then(function (trailResponse) {
+          console.log(trailResponse.trails[0])
           var iFrameEl = $("#directionMap")
           var originLat = localStorage.getItem("locationLat")
           var originLong = localStorage.getItem("locationLong")
@@ -184,16 +185,14 @@ $(document).ready(function () {
           trailNameEl.text(trailResponse.trails[0].name)
           var trailLocationEl = $("<p>")
           trailLocationEl.text(trailResponse.trails[0].location)
-          var trailLatLongEl = $("<p>")
-          trailLatLongEl.text("Longitude: " + trailLong + " / " + "Latitude: " + trailLat)
-          // var buttonEl = $("<button>")
-          // buttonEl.text("Trail Info")
-          // buttonEl.addClass("btn btn-primary")
-          // buttonEl.attr("id", "modalBtn")
-          // buttonEl.attr("type", "submit")
-          // buttonEl.attr("data-toggle", "modal")
-          // buttonEl.attr("data-target", "#trailModal")
-          // buttonEl.css("margin", "5px")
+          var buttonEl = $("<button>")
+          buttonEl.text("Trail Info")
+          buttonEl.addClass("btn btn-primary")
+          buttonEl.attr("id", "modalBtn")
+          buttonEl.attr("type", "submit")
+          buttonEl.attr("data-toggle", "modal")
+          buttonEl.attr("data-target", "#trailModal")
+          buttonEl.css("margin", "5px")
           var reviewButtonEl = $("<a>")
           reviewButtonEl.text("Leave Review")
           reviewButtonEl.css("appearance", "button")
@@ -207,11 +206,50 @@ $(document).ready(function () {
           saveTrailBtnEl.text("Save Trail")
           saveTrailBtnEl.css("margin", "5px")
 
-          trailInfoDiv.append(trailNameEl, trailLocationEl, trailLatLongEl, reviewButtonEl, saveTrailBtnEl)
+          
+
+          trailInfoDiv.append(trailNameEl, trailLocationEl, buttonEl, reviewButtonEl, saveTrailBtnEl)
 
           callWeather(trailLat, trailLong);
 
-        })   
+        }) 
+        
+    // AJAX call for modal
+
+  $(document).on("click", "#modalBtn", function (event) {
+
+    $.ajax({
+      url: trailIdURL,
+      method: "GET",
+      dataType: "JSON",
+    }).then(function (trailResponse) {
+      var modalHeaderParent = $("#modalHeader")
+      var modalBodyParent = $("#modalBody")
+      modalHeaderParent.empty()
+      modalBodyParent.empty()
+      var trailNameEl = $("<h5>")
+      trailNameEl.text("Name: " + trailResponse.trails[0].name)
+      trailNameEl.addClass("modal-title")
+      trailNameEl.attr("id", "trailModalLabel")
+      var starsEl = $("<p>")
+      starsEl.addClass("modalPtags")
+      starsEl.text("Star Rating: " + trailResponse.trails[0].stars)
+      var lengthEl = $("<p>")
+      lengthEl.addClass("modalPtags")
+      lengthEl.text("Length: " + trailResponse.trails[0].length + " miles")
+      var latLongEl = $("<p>")
+      latLongEl.addClass("modalPtags")
+      latLongEl.text("Longitude: " + trailResponse.trails[0].longitude + " / " + "Latitude: " + trailResponse.trails[0].longitude)
+      var conditionStatusEl = $("<p>")
+      conditionStatusEl.addClass("modalPtags")
+      conditionStatusEl.text("Trail Conditions: " + trailResponse.trails[0].conditionStatus)
+
+      modalHeaderParent.append(trailNameEl)
+      modalBodyParent.append(starsEl, lengthEl, latLongEl, conditionStatusEl)
+
+    })
+
+  })
 
   // Save trail for user  
   $(document).on("click", "#saveTrail", function (event) {
