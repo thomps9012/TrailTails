@@ -9,7 +9,13 @@ $(document).ready(function () {
 
 
     $.get("/savedTrails").then(function(savedTrails){
-        savedTrails.forEach(trail => {
+        if (savedTrails.length > 0) {
+            var headerParentDiv = $("#savedTrailsHeaderParent")
+            var headerDiv = $("<div>")
+            headerDiv.addClass("saved-card-header")
+            headerDiv.text("Saved Trails")
+            headerParentDiv.prepend(headerDiv)
+            savedTrails.forEach(trail => {
             
             var hikeURL = "https://www.hikingproject.com/data/get-trails-by-id?ids=" + trail.trailId +  "&key=200712211-0e0047c0b205b2d2705a464dd36eccec"
             $.ajax({
@@ -25,12 +31,21 @@ $(document).ready(function () {
                 aEl.attr("href", "/singleTrail/" + response.trails[0].id)
                 aEl.text(name)
                 $("#savedTrailParentDiv").append(aEl)
+                
             })
          })
+        }
 
     })
 
     $.get("/savedReviews").then(function(reviews){
+        if(reviews.length > 0) {
+        var headerParentDiv = $("#reviewedTrailsHeaderParentDiv")
+        var headerDiv = $("<div>")
+        headerDiv.addClass("reviewed-card-header")
+        headerDiv.text("Reviewed Trails")
+        headerParentDiv.prepend(headerDiv)
+        
         reviews.forEach(review => {
             console.log(review.trailId)
             var parentDiv = $("#reviewedTrailParentDiv")
@@ -48,6 +63,7 @@ $(document).ready(function () {
             aEl.append(spanEl)
             parentDiv.append(aEl)
         })
+    }
 
     })
 
@@ -60,18 +76,21 @@ $(document).ready(function () {
 
     //geolocation function
     function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(showPosition);
-        } else {
-            demo.innerHTML = "Geolocation is not supported by this browser.";
-        }
+
+        $.ajax({
+            method: "GET",
+            url: "http://ip-api.com/json",
+            dataType: "JSON"
+        }).then(function (response) {
+            console.log(response)
+            var locationLat = response.lat
+            var locationLong = response.lon
+            localStorage.setItem("locationLat", locationLat)
+            localStorage.setItem("locationLong", locationLong)
+        })
     }
 
-    function showPosition(position) {
-        localStorage.setItem("locationLat", position.coords.latitude);
-        localStorage.setItem("locationLong", position.coords.longitude);
-
-    };
+    
 
     //Displays city in input field
     function showCity() {
