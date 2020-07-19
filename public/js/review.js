@@ -1,3 +1,4 @@
+// Client-side JavaScript powering front-end interface for user to create a review on a trai.
 $(document).ready(function () {
 
     var hashtags = []
@@ -40,7 +41,7 @@ $(document).ready(function () {
 
         console.log(data)
 
-        // POST route to create review
+        // POST route to create review and save in database tied to user.
 
         $.post("/api/createReview", data)
             .then(function (response) {

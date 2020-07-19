@@ -1,3 +1,6 @@
+// This file sets up passport to allow for a user-based app. 
+// We're setting up a local strategy to utilize email as the primary user field to identify a user and ensure that a user is logged in only when the correct username/password combo is entered.
+
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 

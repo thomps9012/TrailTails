@@ -1,3 +1,5 @@
+// Client-side JavaScript powering user signup for the application.
+
 $(document).ready(function() {
     // Getting references to our form and input
     var signUpForm = $("form.signup");

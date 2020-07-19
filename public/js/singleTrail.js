@@ -1,4 +1,8 @@
+// Client-side JavaScript powering dynamic functionality on Single Trail view.
+
 $(document).ready(function () {
+
+  // Storing key information for AJAX calls to Hiking Project database to get trail information based on Trail Id
 
   var trailId = window.location.href.substring(34)
   var apiKey = "200712211-0e0047c0b205b2d2705a464dd36eccec";
@@ -6,6 +10,7 @@ $(document).ready(function () {
   var trailIdURL = 'https://www.hikingproject.com/data/get-trails-by-id?ids=' + trailId + '&key=' + apiKey;
   let currentDay;
 
+  // Standard function to ensure first letters in words are capitalized and rest lowercase. 
   function capitalizeFirstLetters(string) {
     var lcStr = string.toLowerCase()
     var firstCapWords
@@ -153,6 +158,8 @@ $(document).ready(function () {
 
   }
 
+  // Making AJAX request to Hiking Project database to retrieve trail information. Additionally taking latitude and longitude of trail from previous request to populate Google Maps directions.
+
   $.ajax({
             url: trailIdURL,
             method: "GET",
@@ -214,7 +221,7 @@ $(document).ready(function () {
 
         }) 
         
-    // AJAX call for modal
+    // AJAX call for modal, which displays further information about the trai.
 
   $(document).on("click", "#modalBtn", function (event) {
 

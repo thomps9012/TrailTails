@@ -31,7 +31,12 @@ module.exports = function (app) {
 
     app.post("/api/createReview", async function (req, res){
 
+        // This post route kicks off a serious of interactions with our database. 
+        // Because we need to perform multiple CRUD operations, it's best to use async/await to ensure they happen in the correct order.
+
         try {
+
+            // First operation - saving review to database and associating review with user. 
 
         const savedReview = await db.Review.create({
             title: req.body.title, 
@@ -42,6 +47,8 @@ module.exports = function (app) {
             body: req.body.review, 
             UserId: req.user.id
             })
+
+        // Second - save hashtags to database in hashtag table by looping through array of hashtags. 
 
         const hashTagArr = req.body.hashtags.split(",")
         hashTagArr.forEach(async function (tag) {
@@ -54,6 +61,8 @@ module.exports = function (app) {
                 }
             })
 
+
+         // Creating association through the ReviewHashtag join table in our database to save the relationship between hashtags and review. 
             await db.ReviewHashtag.create({
                 HashtagId: savedHashTag[0].dataValues.id,
                 ReviewId: savedReview.id
@@ -70,6 +79,8 @@ module.exports = function (app) {
 
         }
     })
+
+    // Saving trail and associating user with that saved trail.
 
     app.post("/api/saveTrail/:id", function (req, res){
 

@@ -10,6 +10,9 @@
 </head>
 
 <body>
+  <!-- This page builds the profile view for users to see basic info, saved trails and reviewed trails -->
+
+  <!-- Nav bar structure for users to return home, refresh profile or logout -->
   <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -28,20 +31,20 @@
   <div id="profileContainer" class="container">
     <div class="row">
       <div id="profileDiv" class="col-md-6 col-md-offset-3">
-        <!-- <h2>Welcome <span class="member-name"></span></h2> -->
         <!-- Member Card -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div id="userInfoDiv" class="card">
-  <!-- <img src="img.jpg" alt="John" style="width:100%"> -->
   <!-- User info populated here -->
   <button onclick="window.location.href='/members';"> Let's Hike!</button>
 </div>
     <div id="reviewSavedDiv">
+      <!-- Section to be populated with Saved Trails data -->
       <section class="saved-trails">
         <div class="saved-card-header">Saved Trails</div>
         <div id="savedTrailParentDiv" class="list-group"></div>
-        </section>
+      </section>
+      <!-- Section to be populated with Reviewed Trails data -->
       <section class="reviewed-trails">
         <div class="reviewed-card-header">Reviewed Trails</div>
         <div id="reviewedTrailParentDiv" class="list-group"></div>

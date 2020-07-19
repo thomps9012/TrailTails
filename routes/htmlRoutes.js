@@ -22,25 +22,35 @@ module.exports = function (app) {
         res.sendFile(path.join(__dirname, "../public/login.html"));
     });
 
-    // Here we've add our isAuthenticated middleware to this route.
+    // Here we've add our isAuthenticated middleware to these routes.
     // If a user who is not logged in tries to access this route they will be redirected to the signup page
+
+    // Sends members.html file for front end HTML file to be used when user access /members route. User must be logged in, or isAuthenticated will redirect user to signup page.
     app.get("/members", isAuthenticated, function (req, res) {
         res.sendFile(path.join(__dirname, "../public/members.html"));
     });
 
-    app.get("/singleTrail", function (req, res) {
+    // Sends singleTrail.html file to be utillized when user accesses /singleTrail route. User must be logged in, or isAuthenticated will redirect user to signup page. 
+
+    app.get("/singleTrail", isAuthenticated, function (req, res) {
         res.sendFile(path.join(__dirname, "../public/singleTrail.html"))
     })
 
-    app.get("/profile", function (req, res) {
+    // Sends profile.html file to be utilized when user access /profile route. User must be logged in, or isAuthenticated will redirect user to signup page.
+
+    app.get("/profile", isAuthenticated, function (req, res) {
         res.sendFile(path.join(__dirname, "../public/profile.html"))
     })
 
-    app.get("/singleTrail/:id", function (req, res) {
+    // Sends singleTrail.html file to be utilized when user access /singleTrail route. User must be logged in, or isAuthenticated will redirect user to signup page.
+
+    app.get("/singleTrail/:id", isAuthenticated,  function (req, res) {
         res.sendFile(path.join(__dirname, "../public/singleTrail.html"))
     })
 
-    app.get("/review", function (req, res) {
+    // Sends review.html file to be utilized when user access /review route. User must be logged in, or isAuthenticated will redirect user to signup page.
+
+    app.get("/review", isAuthenticated, function (req, res) {
         res.sendFile(path.join(__dirname, "../public/review.html"))
     })
 

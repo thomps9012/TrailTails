@@ -1,3 +1,5 @@
+// Client-side JavaScript to power dynamic content for homepage and initial hiking trail search. 
+
 $(document).ready(function () {
 
     //set lat & long by pulling from document and setting our API key with queryurl 
@@ -7,6 +9,7 @@ $(document).ready(function () {
     var searchLat = "";
     var searchLong = "";
 
+    // API call to our database to populate user's saved trails on homepage. 
 
     $.get("/savedTrails").then(function(savedTrails){
         if (savedTrails.length > 0) {
@@ -37,6 +40,8 @@ $(document).ready(function () {
         }
 
     })
+
+    // API call to our database to populate user's saved reviews on homepage. 
 
     $.get("/savedReviews").then(function(reviews){
         if(reviews.length > 0) {
@@ -74,7 +79,7 @@ $(document).ready(function () {
         apiKey: "200712211-0e0047c0b205b2d2705a464dd36eccec"
     }
 
-    //geolocation function
+    //geolocation function - utilizes third-party API to get current coordinates based on IP address.
     function getLocation() {
 
         $.ajax({
@@ -129,7 +134,7 @@ $(document).ready(function () {
 
     };
 
-    // Hiking API
+    // Hiking API - thir-party request to retreive list of trails based on query parameters set forth by user. 
     function hikingTrails() {
         searchLat = localStorage.getItem("searchLat");
         searchLong = localStorage.getItem("searchLong");
