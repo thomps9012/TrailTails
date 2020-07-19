@@ -2,7 +2,7 @@
 
 A user-based Node Express app designed to help users find local hiking trails. Explore the most popular trails near you and locate the ones that allow Dogs! Get driving directions, current trail conditions and check weather conditions.
 
-![Alt text](TrailTails/public/assets/images/TrailTailsLandingPage.png?raw=true "Title")
+![Alt text](./public/assets/images/TrailTailsLandingPage.png?raw=true "Title")
 
 ## Getting Started
 
