@@ -1,3 +1,5 @@
+// The purpose of this file is to export our environments as a module so that we can set up JawsDB for Heroku hosting and our local MySQL database when locally hosted. 
+
 module.exports = {
     "development": {
         "username": "root",

@@ -1,3 +1,5 @@
+// Client-side JavaScript to power dynamic content for homepage and initial hiking trail search. 
+
 $(document).ready(function () {
 
     //set lat & long by pulling from document and setting our API key with queryurl 
@@ -7,9 +9,16 @@ $(document).ready(function () {
     var searchLat = "";
     var searchLong = "";
 
+    // API call to our database to populate user's saved trails on homepage. 
 
     $.get("/savedTrails").then(function(savedTrails){
-        savedTrails.forEach(trail => {
+        if (savedTrails.length > 0) {
+            var headerParentDiv = $("#savedTrailsHeaderParent")
+            var headerDiv = $("<div>")
+            headerDiv.addClass("saved-card-header")
+            headerDiv.text("Saved Trails")
+            headerParentDiv.prepend(headerDiv)
+            savedTrails.forEach(trail => {
             
             var hikeURL = "https://www.hikingproject.com/data/get-trails-by-id?ids=" + trail.trailId +  "&key=200712211-0e0047c0b205b2d2705a464dd36eccec"
             $.ajax({
@@ -25,12 +34,23 @@ $(document).ready(function () {
                 aEl.attr("href", "/singleTrail/" + response.trails[0].id)
                 aEl.text(name)
                 $("#savedTrailParentDiv").append(aEl)
+                
             })
          })
+        }
 
     })
 
+    // API call to our database to populate user's saved reviews on homepage. 
+
     $.get("/savedReviews").then(function(reviews){
+        if(reviews.length > 0) {
+        var headerParentDiv = $("#reviewedTrailsHeaderParentDiv")
+        var headerDiv = $("<div>")
+        headerDiv.addClass("reviewed-card-header")
+        headerDiv.text("Reviewed Trails")
+        headerParentDiv.prepend(headerDiv)
+        
         reviews.forEach(review => {
             console.log(review.trailId)
             var parentDiv = $("#reviewedTrailParentDiv")
@@ -48,6 +68,7 @@ $(document).ready(function () {
             aEl.append(spanEl)
             parentDiv.append(aEl)
         })
+    }
 
     })
 
@@ -58,20 +79,23 @@ $(document).ready(function () {
         apiKey: "200712211-0e0047c0b205b2d2705a464dd36eccec"
     }
 
-    //geolocation function
+    //geolocation function - utilizes third-party API to get current coordinates based on IP address.
     function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(showPosition);
-        } else {
-            demo.innerHTML = "Geolocation is not supported by this browser.";
-        }
+
+        $.ajax({
+            method: "GET",
+            url: "http://ip-api.com/json",
+            dataType: "JSON"
+        }).then(function (response) {
+            console.log(response)
+            var locationLat = response.lat
+            var locationLong = response.lon
+            localStorage.setItem("locationLat", locationLat)
+            localStorage.setItem("locationLong", locationLong)
+        })
     }
 
-    function showPosition(position) {
-        localStorage.setItem("locationLat", position.coords.latitude);
-        localStorage.setItem("locationLong", position.coords.longitude);
-
-    };
+    
 
     //Displays city in input field
     function showCity() {
@@ -110,7 +134,7 @@ $(document).ready(function () {
 
     };
 
-    // Hiking API
+    // Hiking API - thir-party request to retreive list of trails based on query parameters set forth by user. 
     function hikingTrails() {
         searchLat = localStorage.getItem("searchLat");
         searchLong = localStorage.getItem("searchLong");
@@ -187,18 +211,6 @@ $(document).ready(function () {
 
 
     });
-
-    function loadSingleTrail (event) {
-        const currentId = event.currentTarget.attributes.value.value
-        window.location.href = "/singleTrail/" + currentId
-        // console.log(currentId)
-        // localStorage.setItem("trailId", currentId)
-        // setTimeout(function () {
-        //     window.location.href = "/singleTrail"
-        // }, 50)
-        return false;
-
-    }
 
     //click function on trail card
     $(document).on("click", '.stretched-link', function (event) {

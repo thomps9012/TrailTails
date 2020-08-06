@@ -1,3 +1,6 @@
+// Our index.js file is boilerplate Sequelize code needed to be able to perform CRUD operations on our models. 
+// We'll eventually export the entire models folder, and this index file is crucial to be able to access each model
+
 'use strict';
 
 var fs = require('fs');

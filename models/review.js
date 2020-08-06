@@ -1,3 +1,4 @@
+// Creating our review model by defining data fields and types. This will allow for users to store these datapoints when creating a review. 
 module.exports = function (sequelize, DataTypes) {
     var Review = sequelize.define("Review", {
         title: {
@@ -28,6 +29,9 @@ module.exports = function (sequelize, DataTypes) {
 
 
     })
+
+    // Associating reviews with users, as a user must create the review. 
+    // In addition, we're associating reviews with hashtags through the join model "ReviewHashtags"
 
     Review.associate = function (models) {
         Review.belongsTo(models.User, {

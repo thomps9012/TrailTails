@@ -1,3 +1,5 @@
+/* CSS Styling for Single Trail pages. Includes styling for weather view, directions view and trail info views.  */
+
 .stretch-card>.card {
      width: 100%;
      min-width: 100%
@@ -190,24 +192,27 @@
   font-size: 23px;
   font-weight: bolder;  
 }
-/* 
-.modal-backdrop {
-position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -2;
-  background-color: #000000; */
 
-/* } */
-/* 
-.modal {
-  background: green;
-  position: absoßute;
-  float: left;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-} */
+#trailModalLabel{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 23px;
+  font-weight: bolder;
+  color: white;
+}
 
+.modal-dialog {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 23px;
+  font-weight: bolder;
+  color: white;
+  margin-top: 300px;  
+
+}
+
+.modalPtags {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: bolder;
+  color: white;
+
+}

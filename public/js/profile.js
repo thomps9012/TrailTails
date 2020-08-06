@@ -1,3 +1,5 @@
+// Client side JavaScript powering front-end for our profile page.
+
 $(document).ready(function() {
     // This file just does a GET request to figure out which user is logged in
     // and updates the HTML on the page
@@ -12,6 +14,8 @@ $(document).ready(function() {
 
       userInfoParentDiv.append(fullNameEl, homeTownEl)
     });
+
+    // API call to our database which retrieves the user's saved trails and displays them on the page.
 
   $.get("/savedTrails").then(function (savedTrails) {
     savedTrails.forEach(trail => {
@@ -33,6 +37,8 @@ $(document).ready(function() {
       })
     })
   })
+
+  // API call to our database which retreives user's saved reviews and displays them on page.
 
   $.get("/savedReviews").then(function (reviews) {
     reviews.forEach(review => {

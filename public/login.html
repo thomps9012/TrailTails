@@ -16,40 +16,49 @@
 
 <body>
 
+	<!-- Setting up HTML body for Login Page -->
+
  <div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
+			<!-- User Card sets up card box where user will enter info to sign up -->
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
+					<!-- Accessing brand image at top of card -->
 					<div class="brand_logo_container">
 						<img src="./assets/images/dog-2.jpg" class="brand_logo" alt="Logo">
 					</div>
 				</div>
+				<!-- Setting up form for user to fill in and submit information for signup -->
 				<div class="d-flex justify-content-center form_container">
 					<form class="login">
+						<!-- Username input -->
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
 							<input type="text" id="email-input" name="" class="form-control input_user" value="" placeholder="username">
 						</div>
+						<!-- Password input -->
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
 							<input type="password" id="password-input" name="" class="form-control input_pass" value="" placeholder="password">
 						</div>
+						<!-- "Remember Me" checkbox input if user would like to be remembered on this browser -->
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
 								<input type="checkbox" class="custom-control-input" id="customControlInline">
 								<label class="custom-control-label" for="customControlInline">Remember me</label>
 							</div>
 						</div>
-							<div class="d-flex justify-content-center mt-3 login_container">
-				 	<button type="submit" name="button" class="btn login_btn">Login</button>
-				   </div>
+						<!-- Submit button -->
+						<div class="d-flex justify-content-center mt-3 login_container">
+				 			<button type="submit" name="button" class="btn login_btn">Login</button>
+				   		</div>
 					</form>
 				</div>
-		
+				<!-- Setting up div and A tag element to give users the option to click through to login page. -->
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Don't have an account? <a href="./signup.html" class="ml-2">Sign Up</a>
@@ -59,6 +68,8 @@
 			</div>
 		</div>
 	</div>
+
+<!-- Referencing jQuery CDN and login.js files to sync client-side JavaScript to power page  -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/login.js"></script>

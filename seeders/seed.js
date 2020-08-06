@@ -1,3 +1,5 @@
+// Seed file to seed users into database
+
 const Sequelize = require('sequelize');
 const db = require('../models/index.js');
 const review = require('../models/review.js');

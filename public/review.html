@@ -20,6 +20,8 @@
 
 <body>
 
+    <!-- This page provides the front-end code for users to leave reviews on a trail -->
+
 <!-- header with trail info and dog picture -->
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
@@ -37,11 +39,15 @@
   </div>
 </nav>
 
+    <!-- Form code for users to submit info on reviews.  -->
+
     <form class="reviewForm">
+        <!-- Review Title -->
         <div class="form-group">
             <label for="exampleFormControlInput1">Title</label>
             <input type="text" class="form-control" id="title" placeholder="Title">
         </div>
+        <!-- Overall Star Rating -->
         <div class="form-group">
             <label for="overallStars">Overall Rating</label>
             <select class="form-control" id="overallStars">
@@ -52,6 +58,7 @@
                 <option>5</option>
             </select>
         </div>
+        <!-- Difficulty Rating -->
         <div class="form-group">
             <label for="difficultyStars">Difficulty Rating</label>
             <select class="form-control" id="difficultyStars">
@@ -62,11 +69,12 @@
                 <option>5</option>
             </select>
         </div>
-        
+        <!-- Review body -->
         <div class="form-group">
             <label for="body">Review</label>
             <textarea class="form-control" id="body" rows="5"></textarea>
         </div>
+        <!-- Hashtags users would like to add to review -->
         <div class="form-group">
             <label for="hashtag">Hashtags</label>
             <input type="text" class="form-control" id="hashtag" placeholder="dog-friendly, lake...">

@@ -1,1 +1,2 @@
+# Ignoring node modules to ensure that node modules aren't saved/pushed to Github with each push
 node_modules
